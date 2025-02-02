@@ -1,5 +1,4 @@
 def adder(KPIs, Periods, Units, Decimals, Values,rb,rs):
-    
     j = 1
 
     rs[f'A{j}'].value = 'Name'
@@ -19,6 +18,6 @@ def adder(KPIs, Periods, Units, Decimals, Values,rb,rs):
         rs[f'E{i+2}'].value = Periods[i]
         rs[f'F{i+2}'].value = Decimals[i]
 
-    rb.save("res.xlsx")
+    rb.save("exs/res.xlsx")
 
         
