@@ -9,31 +9,32 @@ namespaces = {
 }
 
 # Step 2: Use XPath to find the specific tag
-element = root.find('.//in-capmkt:TotalScope1Emissions', namespaces=namespaces)
+ele0 = root.find('.//in-capmkt:TotalScope1Emissions', namespaces=namespaces)
 ele1 = root.find('.//in-capmkt:TotalWageCost', namespaces=namespaces)
 ele2 = root.find('.//in-capmkt:NumberOfPersonsBenefittedFromCSRProjects', namespaces=namespaces)
 
 # Step 3: Check if the tag is found and extract information
-if element is not None:
+if ele0 is not None:
 
     print("Attributes:")
-    for attr, value in element.attrib.items():
+    for attr, value in ele0.attrib.items():
         print(f"{attr}: {value}")
-        print("-----------")
+        
+    print("-----------")
 
-    context_ref = element.get('contextRef')
+    context_ref = ele0.get('contextRef')
     cn = ele1.get('contextRef')
 
-    decimals = element.get('decimals')
+    decimals = ele0.get('decimals')
     decimals1 = ele1.get('decimals')
 
-    period = element.get('endDate')
+    period = ele0.get('endDate')
     period1 = ele1.get('endDate')
 
-    unit_ref = element.get('unitRef')
+    unit_ref = ele0.get('unitRef')
     unit_ref1 = ele1.get('unitRef')
 
-    amount = element.text
+    amount = ele0.text
     amount1 = ele1.text
 
     print(f"Unit: {context_ref}")
