@@ -10,10 +10,12 @@ def extractor(req_kpis, df, column_A_list, column_A_set):
     Decimals = []
     Values = []
 
-
+    z=0
     for s in my_strings:                            # iterate over the required KPIs
         if s in column_A_set:
             index = column_A_list.index(s)
+            z +=1
+            print(z, s, "found at index:", index)
             matches.append((index))
 
     print("Matches found at:", matches)

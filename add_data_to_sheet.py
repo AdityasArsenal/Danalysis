@@ -8,6 +8,9 @@ def adder(KPIs, Periods, Units, Decimals, Values,rb,rs):
     rs[f'E{j}'].value = 'Period'
     rs[f'F{j}'].value = 'Decimal'
 
+    # m = len(KPIs)
+    # for i in range(m):
+
     n = len(KPIs)
 
     for i in range(n):
