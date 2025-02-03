@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('gg.xml')
+tree = ET.parse('nn.xml')
 root = tree.getroot()
 
 namespaces = {
@@ -9,7 +9,7 @@ namespaces = {
 }
 
 kpi_names = [
-    'GreenhouseGas_GHG_Emissions',
+    'GreenhouseGasGHGEmissions',
     'TotalScope1Emissions',
     'TotalScope2Emissions',
     'TotalScope3Emissions',
@@ -18,7 +18,49 @@ kpi_names = [
     'WasteManagement',
     'TotalWasteGenerated',
     'TotalWasteDisposed',
-    'Landfilling',
+    'WasteDisposedByLandfilling',
+    'WasteDisposedByIncineration',
+    'EWaste',
+    'BatteryWaste',
+    'PlasticWaste',
+    'BioMedicalWaste',
+    'RadioactiveWaste',
+    'OtherHazardousWaste',
+    'ConstructionAndDemolitionWaste',
+    'OtherNonHazardousWasteGenerated',
+    'WasteIntensityPerRupeeOfTurnover',
+    'TotalWasteRecovered',
+    'WasteRecoveredThroughReUsed',
+    'AmountOfReUsed',
+    'AmountOfRecycled',
+    'WasteRecoveredThroughRecycled',
+    'WaterManagement',
+    'TotalWaterDischargedInKilolitres',
+    'TotalWaterWithdrawal',
+    'WaterWithdrawalBySurfaceWater',
+    'WaterWithdrawalByGroundwater',
+    'WaterWithdrawalByThirdPartyWater',
+    'WaterWithdrawalBySeawaterDesalinatedWater',
+    'WaterWithdrawalByOther',
+    'TotalWaterConsumption',#####
+    'TotalWaterDischargedInKilolitres',
+    'TotalWaterDischargedToGroundwaterWithTreatment',#####
+    'WaterDischargeToGroundwaterWithOutTreatment',
+    'WaterDischargeToSurfaceWaterWithTreatment',
+    'WaterDischargeToSurfaceWaterWithOutTreatment',
+    'WaterDischargeToSeawaterWithTreatment',
+    'WaterDischargeToSeawaterWithOutTreatment',
+    'WaterDischargeToThirdPartiesWithTreatment',##
+    'WaterDischargeToThirdPartiesWithoutTreatment',
+    'WaterDischargeToOthersWithTreatment',
+    'WaterDischargeToOthersWithoutTreatment',
+    'WaterRecovered',
+    'WaterIntensityPerRupeeOfTurnover',
+    'EnergyManagement',#####
+    'TotalEnergyConsumedFromRenewableSources',
+    'TotalEnergyConsumedFromRenewableAndNonRenewableSources',
+    'TotalEnergyConsumedFromNonRenewableSources',
+    'EnergyIntensityPerRupeeOfTurnover'
 ]
 
 units = [
@@ -38,7 +80,7 @@ units = [
 def get_data_from_xml(root, units, namespaces, kpi_names):
 
     c = 0
-    for kpi_name,unit in zip(kpi_names,units):
+    for kpi_name in kpi_names:
         c += 1
         print(f'{c}.')
 
@@ -59,7 +101,10 @@ def get_data_from_xml(root, units, namespaces, kpi_names):
 
             if unit_ref == 'MtCO2e':                                                            # Convert MtCO2e to tCO2e
                 value = float(element.text) * 1000000
-                unit_ref = 'tCO2e'                                                              # unit handling
+                unit_ref = 'tCO2e'                                                               # unit handling
+            elif unit_ref == 'MtCO2ePerINR':
+                value = float(element.text) * 1000000
+                unit_ref = 'tCO2e/INR crore'
             else:
                 value = element.text
 

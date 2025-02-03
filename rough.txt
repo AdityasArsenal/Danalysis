@@ -100,7 +100,6 @@
 
 
 
-ok things are going great 
-now
-about the period 
-i only to select the element if its start date has 2023 in it
+Siemens = nn
+NMDC = oo
+ITI = pp
