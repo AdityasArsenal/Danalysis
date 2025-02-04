@@ -65,59 +65,101 @@ env_kpi_names = [
     'EnergyIntensityPerRupeeOfTurnover'
 ]
 social_kpi_names =[
-    "TrainingAndAwareness",
+    #"TrainingAndAwareness",
     "TotalNumberOfTrainingAndAwarenessProgramsHeld",
     "TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues",
-    "PercentOfPermanentWorkersProvidedTrainingOnHumanRightsIssuesAndPolicies",
-    "PercentOfPermanentEmployeesProvidedTrainingOnHumanRightsIssuesAndPolicies",
+
+    "PercentageOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues", #uni anna 
+    #"PercentOfPermanentEmployeesProvidedTrainingOnHumanRightsIssuesAndPolicies",
+
     "TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues",
-    "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesWorkers",
-    "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesBoardOfDirectors",
-    "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesKeyManagerialPersonnelKMPs",
-    "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesEmployeesOtherThanKMPsAndBODs",
-    "TotalNumberOfTrainingsGivenToEmployeesMale",
-    "TotalNumberOfTrainingsGivenToEmployeesFemale",
-    "WorkforceAndEmployment",
-    "TotalNumberOfPermanentWorkersMaleAtTheEndOfTheFY",
-    "TotalNumberOfPermanentEmployeesMaleAtTheEndOfTheFY",
-    "TotalNumberOfPermanentWorkersFemaleAtTheEndOfTheFY",
-    "TotalNumberOfPermanentEmployeesFemaleAtTheEndOfTheFY",
-    "TotalNumberOfWorkersIncludingDifferentlyAbledAtTheEndOfTheFY",
-    "TotalNumberOfEmployeesIncludingDifferentlyAbledAtTheEndOfTheFY",
+    "PercentageOfPersonsInRespectiveCategoryCoveredByTheAwarenessProgrammes",
+    # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesWorkers",
+    # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesBoardOfDirectors",                #neeeds unit check
+    # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesKeyManagerialPersonnelKMPs",
+    # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesEmployeesOtherThanKMPsAndBODs",
+    
+    #"TotalNumberOfTrainingsGivenToEmployeesMale",
+    #"TotalNumberOfTrainingsGivenToEmployeesFemale",                        #no mention of training in any sheet
+    
+    #"WorkforceAndEmployment",
+    "NumberOfEmployeesOrWhoseFamilyMembersRehabilitatedAndPlacedInSuitableEmployment",
+    "NumberOfWorkersOrWhoseFamilyMembersRehabilitatedAndPlacedInSuitableEmployment",
+
+    # "TotalNumberOfPermanentWorkersMaleAtTheEndOfTheFY",
+    # "TotalNumberOfPermanentEmployeesMaleAtTheEndOfTheFY",
+    # "TotalNumberOfPermanentWorkersFemaleAtTheEndOfTheFY",           #UNIT ANALYSIS   add all the values where unit has PermanentWorkers
+    # "TotalNumberOfPermanentEmployeesFemaleAtTheEndOfTheFY",
+    # "TotalNumberOfWorkersIncludingDifferentlyAbledAtTheEndOfTheFY",
+    # "TotalNumberOfEmployeesIncludingDifferentlyAbledAtTheEndOfTheFY",
+    
     "EmployeeTurnover",
-    "TotalTurnoverRateForMalePermanentEmployees",
-    "TotalTurnoverRateForFemalePermanentEmployees",
-    "HealthAndSafety",
-    "NumberOfFatalitiesWorkers",
-    "NumberOfFatalitiesEmployees",
-    "TotalRecordableWorkRelatedInjuriesWorkers",
-    "LostTimeInjuryFrequencyRateLTIFRWorkers",
-    "TotalRecordableWorkRelatedInjuriesEmployees",
-    "LostTimeInjuryFrequencyRateLTIFREmployees",
-    "HighConsequenceWorkRelatedInjuryOrIllHealthExcludingFatalitiesWorkers",
-    "HighConsequenceWorkRelatedInjuryOrIllHealthExcludingFatalitiesEmployees",
-    "NumberOfComplaintsAboutHealthAndSafetyPendingResolutionAtYearEnd",
-    "NumberOfComplaintsAboutWorkingConditionsPendingResolutionAtYearEnd",
-    "NumberOfComplaintsAboutHealthAndSafetyFiledByEmployeesAndWorkersDuringTheYear",
-    "NumberOfComplaintsAboutWorkingConditionsFiledByEmployeesAndWorkersDuringTheYear",
+
+
+    # "TotalTurnoverRateForMalePermanentEmployees",
+    # "TotalTurnoverRateForFemalePermanentEmployees",                       unit ann but kpi is "TurnoverRate"
+
+    #"Health & Safety",
+    "WhetherAnOccupationalHealthAndSafetyManagementSystemHasBeenImplementedByTheEntity",
+    "DetailsOfOccupationalHealthAndSafetyManagementSystemExplanatoryTextBlock",
+    "PercentageOfHealthAndSafetyPracticesOfYourPlantsAndOfficesThatWereAssessedP3",
+
+    # "NumberOfFatalitiesWorkers",                          uni ana kpi is NumberOfFatalities
+    # "NumberOfFatalitiesEmployees",
+    
+    #"TotalRecordableWorkRelatedInjuriesWorkers",           #unit ana kpi is "TotalRecordableWorkRelatedInjuries"
+    #"TotalRecordableWorkRelatedInjuriesEmployees",
+    
+    #"LostTimeInjuryFrequencyRateLTIFRWorkers",             uni ana kpi is "LostTimeInjuryFrequencyRatePerOneMillionPersonHoursWorked" 
+    #"LostTimeInjuryFrequencyRateLTIFREmployees",
+    
+    # "HighConsequenceWorkRelatedInjuryOrIllHealthExcludingFatalitiesWorkers",
+    # "HighConsequenceWorkRelatedInjuryOrIllHealthExcludingFatalitiesEmployees",        # kpi is HighConsequenceWorkRelatedInjuryOrIllHealthExcludingFatalities
+   
+    # "NumberOfComplaintsAboutHealthAndSafetyPendingResolutionAtYearEnd",
+    # "NumberOfComplaintsAboutWorkingConditionsPendingResolutionAtYearEnd",
+    # "NumberOfComplaintsAboutHealthAndSafetyFiledByEmployeesAndWorkersDuringTheYear",
+    # "NumberOfComplaintsAboutWorkingConditionsFiledByEmployeesAndWorkersDuringTheYear",
+    
     "ConsumerProtectionAndGrievances",
-    "NumberOfConsumerComplaintsInRespectOfTheFollowing",
-    "Advertising",
-    "DataPrivacy",
-    "CyberSecurity",
-    "UnfairTradePractices",
-    "RestrictiveTradePractices",
-    "DeliveryOfEssentialServices",
-    "CsrAndSocialResponsibility",
-    "TotalCSRSpend",
+    #"NumberOfConsumerComplaintsInRespectOfTheFollowing", uni ana kpi is ConsumerComplaintsReceivedDuringTheYear
+    # "Advertising",
+    # "DataPrivacy",
+    # "CyberSecurity",
+    # "UnfairTradePractices",                               these are the unis
+    # "RestrictiveTradePractices",
+    # "DeliveryOfEssentialServices",
+    
+    #"CsrAndSocialResponsibility",
+    #"TotalCSRSpend",
+
     "NumberOfPersonsBenefittedFromCSRProjects",
+    
     "HumanRightsAndWorkplaceEthics",
-    "NumberOfComplaintsOnTheFollowingFiledByEmployeesAndWorkers",
-    "Wages",
-    "ChildLabour",
-    "SexualHarassment",
-    "DiscriminationAtWorkplace",
-    "ForcedLabourInvoluntaryLabour",
+
+    "NumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues", #UNI as it has prymary and others
+
+    #"NumberOfComplaintsOnTheFollowingFiledByEmployeesAndWorkers",
+
+    #"NumberOfComplaintsFiledDuringTheYear",
+
+
+    #"Wages",                   unit ana kpi is TotalWageCost
+
+    #"ChildLabour",
+    "PercentageOfChildLabourOfYourPlantsAndOfficesThatWereAssessedP5",
+    "PercentageOfChildLabourOfValueChainPartnersP5",
+
+    "TotalComplaintsReportedUnderSexualHarassmentOfWomenAtWorkplace",
+
+    #"DiscriminationAtWorkplace",
+    "PercentageOfDiscriminationAtWorkPlaceOfYourPlantsAndOfficesThatWereAssessedP5",
+    "PercentageOfDiscriminationAtWorkPlaceOfValueChainPartnersP5",
+
+    #"ForcedLabourInvoluntaryLabour",
+    "PercentageOfForcedLabourOrInvoluntaryLabourOfValueChainPartnersP5",
+    "PercentageOfForcedLabourOrInvoluntaryLabourOfYourPlantsAndOfficesThatWereAssessedP5",
+    
     "OtherHumanRightsRelatedIssues"
 ]
 governance_kpi_names = [
@@ -242,6 +284,10 @@ def get_data_from_xml(root, namespaces, env_kpi_names, social_kpi_names, governa
                 print(f"🔴Element not found for {kpi_name}🔴\n")
 
     def get_social_data_from_xml(root, namespaces, social_kpi_names):
+        units = []
+
+        
+        
         g = 0
         for kpi_name in social_kpi_names:
             g += 1
