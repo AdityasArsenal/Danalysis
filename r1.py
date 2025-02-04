@@ -284,9 +284,6 @@ def get_data_from_xml(root, namespaces, env_kpi_names, social_kpi_names, governa
                 print(f"🔴Element not found for {kpi_name}🔴\n")
 
     def get_social_data_from_xml(root, namespaces, social_kpi_names):
-        units = []
-
-        
         
         g = 0
         for kpi_name in social_kpi_names:
@@ -302,26 +299,13 @@ def get_data_from_xml(root, namespaces, env_kpi_names, social_kpi_names, governa
 
                 decimal = element.get('decimals')
                 unit_ref = element.get('unitRef')
+                value = element.text
+
                 if period_element is not None:
                     startPeriod = period_element.find('xbrli:startDate', namespaces=namespaces)
                     endPeriod = period_element.find('xbrli:endDate', namespaces=namespaces)
                 else:
                     period = 'NA'
-
-                if unit_ref == 'MtCO2e':                                                             # unit handling  (Convert MtCO2e to tCO2e)
-                    value = float(element.text) * 1000000
-                    unit_ref = 'tCO2e'                                                              
-                elif unit_ref == 'MtCO2ePerINR':
-                    value = float(element.text) * 1000000
-                    unit_ref = 'tCO2e/INR crore'
-                elif unit_ref == 'Kilojoule':
-                    value = float(element.text) /1000
-                    unit_ref = 'gigajoules'
-                elif unit_ref == 'KilojoulePerINR':
-                    value = float(element.text) /1000
-                    unit_ref = 'gigajoules/INR crore'
-                else:
-                    value = element.text
 
                 found_social_kpi_names.append(kpi_name)
                 found_social_values.append(value)
@@ -365,17 +349,17 @@ def get_data_from_xml(root, namespaces, env_kpi_names, social_kpi_names, governa
                 not_found_governance_kpi_names.append(kpi_name)
                 print(f"🔴Element not found for {kpi_name}🔴\n")
 
-    #get_env_data_from_xml(root, namespaces, env_kpi_names)
-    #print(len(found_env_kpi_names), len(found_env_values), len(found_env_unit_refs), len(found_env_periods), len(found_env_decimals))
-    #print(f"🟢🟢🟢🟢🟢🟢🟢🟢env info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+    get_env_data_from_xml(root, namespaces, env_kpi_names)
+    print(len(found_env_kpi_names), len(found_env_values), len(found_env_unit_refs), len(found_env_periods), len(found_env_decimals))
+    print(f"🟢🟢🟢🟢🟢🟢🟢🟢env info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
 
     get_social_data_from_xml(root, namespaces, social_kpi_names)
     print(len(found_social_kpi_names), len(found_social_values), len(found_social_unit_refs), len(found_social_periods), len(found_social_decimals))
     print(f"🟢🟢🟢🟢🟢🟢🟢🟢🟢social info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
 
-    # get_governance_data_from_xml(root, namespaces, governance_kpi_names)
-    # print(len(found_governance_kpi_names), len(found_governance_values), len(found_governance_unit_refs), len(found_governance_periods), len(found_governance_decimals))
-    # print(f"🟢🟢🟢🟢🟢🟢🟢🟢🟢governance info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+    get_governance_data_from_xml(root, namespaces, governance_kpi_names)
+    print(len(found_governance_kpi_names), len(found_governance_values), len(found_governance_unit_refs), len(found_governance_periods), len(found_governance_decimals))
+    print(f"🟢🟢🟢🟢🟢🟢🟢🟢🟢governance info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
 
 
 get_data_from_xml(root, namespaces, env_kpi_names, social_kpi_names, governance_kpi_names)
