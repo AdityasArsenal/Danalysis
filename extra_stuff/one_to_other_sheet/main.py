@@ -1,7 +1,7 @@
 import pandas as pd
 from openpyxl import load_workbook
-from extract_data import extractor
-from add_data_to_sheet import adder
+from extra_stuff.one_to_other_sheet.extract_data import extractor
+from extra_stuff.one_to_other_sheet.add_data_to_sheet import adder
 
 rb =load_workbook("exs/res.xlsx")  # Connect to the open file
 rs = rb.active
