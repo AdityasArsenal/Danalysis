@@ -1,5 +1,7 @@
 import xml.etree.ElementTree as ET
-from social_handeler import get_social_data_from_xml
+from Social_handeler import get_social_data_from_xml
+from Environmental_handeler import get_env_data_from_xml
+from Governance_handeler import get_gov_data_from_xml
 
 tree = ET.parse('xml_files/nn.xml')
 root = tree.getroot()
@@ -110,6 +112,103 @@ social_kpi_names = [
     
     "OtherHumanRightsRelatedIssues"
 ]
+env_kpi_names = [
+    'GreenhouseGasGHGEmissions',#####
+    'WhetherDetailsOfGreenHouseGasEmissionsAndItsIntensityIsApplicableToTheCompany',
+    'TotalScope1Emissions',
+    'TotalScope2Emissions',
+    'TotalScope3Emissions',
+    'TotalScope3EmissionsPerRupeeOfTurnover',#####
+    'TotalScope1EndScope2EmissionsPerRupeeOfTurnover',
+    'WasteManagement',#####
+    'TotalWasteGenerated',
+    'TotalWasteDisposed',
+    'Landfilling',
+    'WasteDisposedByLandfilling',
+    'WasteDisposedByIncineration',
+    'EWaste',
+    'BatteryWaste',
+    'PlasticWaste',
+    'BioMedicalWaste',
+    'RadioactiveWaste',
+    'OtherHazardousWaste',
+    'ConstructionAndDemolitionWaste',
+    'OtherNonHazardousWasteGenerated',
+    'WasteIntensityPerRupeeOfTurnover',
+    'TotalWasteRecovered',
+    'WasteRecoveredThroughReUsed',
+    'asefasd',
+    'AmountOfReUsed',
+    'AmountOfRecycled',
+    'WasteRecoveredThroughRecycled',
+    'WaterManagement',#####
+    'TotalWaterDischargedInKilolitres',
+    'TotalWaterWithdrawal',#####
+    'WaterWithdrawalBySurfaceWater',
+    'WaterWithdrawalByGroundwater',
+    'WaterWithdrawalByThirdPartyWater',
+    'WaterWithdrawalBySeawaterDesalinatedWater',#####
+    'WaterWithdrawalByOther',#####
+    'TotalWaterConsumption',#####
+    'TotalWaterDischargedInKilolitres',
+    'TotalWaterDischargedToGroundwaterWithTreatment',#####removable
+    'WaterDischargeToGroundwaterWithOutTreatment',
+    'WaterDischargeToSurfaceWaterWithTreatment',
+    'WaterDischargeToSurfaceWaterWithOutTreatment',
+    'WaterDischargeToSeawaterWithTreatment',
+    'WaterDischargeToSeawaterWithOutTreatment',
+    'WaterDischargeToThirdPartiesWithTreatment',##
+    'WaterDischargeToThirdPartiesWithoutTreatment',##
+    'WaterDischargeToOthersWithTreatment',
+    'WaterDischargeToOthersWithoutTreatment',
+    'WaterRecovered',#####
+    'WaterIntensityPerRupeeOfTurnover',
+    'EnergyManagement',#####
+    'TotalEnergyConsumedFromRenewableSources',
+    'TotalEnergyConsumedFromRenewableAndNonRenewableSources',
+    'TotalEnergyConsumedFromNonRenewableSources',
+    'EnergyIntensityPerRupeeOfTurnover'
+]
+gov_kpi_names = [
+    "EthicalSourcingAndSupplyChain",
+    "PercentageOfInputsWereSourcedSustainably",
+    #"BoardAndLeadershipDiversity", calculating on the last data
+    "TotalNumberOfBoardOfDirectors",
+    "NumberOfFemaleBoardOfDirectors",
+    "TotalNumberOfKeyManagementPersonnel",
+    "NumberOfFemaleKeyManagementPersonnel",
+    "DoesTheEntityHaveAFrameworkOrPolicyOnCyberSecurityAndRisksRelatedToDataPrivacy",
+    "WebLinkOfThePolicyOnCyberSecurityAndRisksRelatedToDataPrivacy",
+    "NumberOfInstancesOfDataBreachesAlongWithImpact",
+    "TotalNumberOfInstancesOfDataBreaches", #Not found anyware
+
+    "RemunerationAndPayEquity", # decide on the following data
+    # "MedianRemunerationSalaryWagesOfBoardOfDirectorsFemale",
+    # "MedianRemunerationSalaryWagesOfBoardOfDirectorsMale",
+    # "MedianRemunerationSalaryWagesOfKeyManagerialPersonnelFemale",
+    # "MedianRemunerationSalaryWagesOfKeyManagerialPersonnelMale",
+    # "MedianRemunerationSalaryWagesOfEmployeesOtherThanBODAndKMPFemale",
+    "MedianRemunerationSalaryWagesOfEmployeesOtherThanBODAndKMPMale"
+        
+    "NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages",
+    "MedianOfRemunerationOrSalaryOrWagesOfBoardOfDirectors",
+
+    "NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages",
+    "MedianOfRemunerationOrSalaryOrWagesOfKeyManagerialPersonnel",
+
+    "NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages",
+    "MedianOfRemunerationOrSalaryOrWagesOfEmployeesOtherThanBodAndKMP",
+
+    "NumberOfWorkersForRemunerationOrSalaryOrWages",
+    "MedianOfRemunerationOrSalaryOrWagesOfWorkers",
+]
 
 
-found_social_kpi_names,found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names = get_social_data_from_xml(root, namespaces, social_kpi_names)
+print(f"🟢🟢🟢🟢🟢🟢🟢🟢social info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+found_social_kpi_names,found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names = get_social_data_from_xml(root, namespaces,social_kpi_names)
+
+print(f"🟢🟢🟢🟢🟢🟢🟢🟢env info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names = get_env_data_from_xml(root, namespaces, env_kpi_names)
+
+print(f"🟢🟢🟢🟢🟢🟢🟢🟢gov info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names =  get_gov_data_from_xml(root, namespaces, gov_kpi_names)
