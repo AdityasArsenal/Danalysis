@@ -2,6 +2,13 @@ import xml.etree.ElementTree as ET
 from Social_handeler import get_social_data_from_xml
 from Environmental_handeler import get_env_data_from_xml
 from Governance_handeler import get_gov_data_from_xml
+import pandas as pd
+from openpyxl import load_workbook
+from extra_stuff.one_to_other_sheet.extract_data import extractor
+from add_data_to_sheet import adder
+
+rb =load_workbook("res.xlsx")  # Connect to the open file
+rs = rb.active
 
 tree = ET.parse('xml_files/nn.xml')
 root = tree.getroot()
@@ -205,10 +212,15 @@ gov_kpi_names = [
 
 
 print(f"🟢🟢🟢🟢🟢🟢🟢🟢social info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
-found_social_kpi_names,found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names = get_social_data_from_xml(root, namespaces,social_kpi_names)
+found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names = get_social_data_from_xml(root, namespaces,social_kpi_names)
+adder(found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names,rb,rs,"")
 
 print(f"🟢🟢🟢🟢🟢🟢🟢🟢env info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
 found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names = get_env_data_from_xml(root, namespaces, env_kpi_names)
+adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,rb,rs,"")
+
 
 print(f"🟢🟢🟢🟢🟢🟢🟢🟢gov info🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢")
 found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names =  get_gov_data_from_xml(root, namespaces, gov_kpi_names)
+
+adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names, rb,rs,"gov_res")

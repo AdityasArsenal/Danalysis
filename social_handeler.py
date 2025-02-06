@@ -373,5 +373,5 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
     print(len(found_social_decimals))
     print(len(not_found_social_kpi_names))
 
-    return found_social_kpi_names,found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names
+    return found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names
     
