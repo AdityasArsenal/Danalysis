@@ -23,148 +23,163 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
         elements = root.findall(f'.//in-capmkt:{kpi_name}', namespaces=namespaces)
 
         if elements:
-
+            i = 0
             if len(elements) == 3:
-                if kpi_name == "NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages":
-                    
-                    if contextRef == "D_Male_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                for element in elements:
+                    contextRef = element.get('contextRef')
+                    value = element.text
+                    decimal = element.get('decimals')
+                    unit_ref = element.get('unitRef')
+                    period_element = root.find(f'.//xbrli:context[@id="{contextRef}"]/xbrli:period', namespaces=namespaces)
+                    if period_element is not None:
 
-                        Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages+= int(value)
-
-                    elif contextRef == "D_Female_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-
-                        Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages+= int(value)
-                        
+                        startPeriod = period_element.find('xbrli:startDate', namespaces=namespaces)
+                        endPeriod = period_element.find('xbrli:endDate', namespaces=namespaces)
                     else:
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                        period = 'NA'
 
-                        Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages+= int(value)
-                        
-                elif kpi_name == "NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages":
-                    
-                    if contextRef == "D_Male_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                    if "2023" in startPeriod.text:
 
-                        Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages+= int(value)
+                        if kpi_name == "NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages":
+                            
+                            if contextRef == "D_Male_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                    elif contextRef == "D_Female_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages+= int(value)
 
-                        Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages+= int(value)
-                        
-                    else:
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                            elif contextRef == "D_Female_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages+= int(value)
+                                Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages+= int(value)
+                                
+                            else:
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                elif kpi_name == "NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages":
-                    
-                    if contextRef == "D_Male_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages+= int(value)
+                                
+                        elif kpi_name == "NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages":
+                            
+                            if contextRef == "D_Male_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages+= int(value)
+                                Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages+= int(value)
 
-                    elif contextRef == "D_Female_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                            elif contextRef == "D_Female_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages+= int(value)
-                        
-                    else:
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages+= int(value)
+                                
+                            else:
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages+= int(value)
+                                Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages+= int(value)
 
-                elif kpi_name == "NumberOfWorkersForRemunerationOrSalaryOrWages":
-                    
-                    if contextRef == "D_Male_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                        elif kpi_name == "NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages":
+                            
+                            if contextRef == "D_Male_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
+                                Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages+= int(value)
 
-                    elif contextRef == "D_Female_p5":
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                            elif contextRef == "D_Female_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
-                        
-                    else:
-                        extended_kpi_name = f"{kpi_name}--{contextRef}"
-                        found_gov_kpi_names.append(extended_kpi_name)
-                        found_gov_referance_unit.append(contextRef)
-                        found_gov_values.append(value)
-                        found_gov_decimals.append(decimal)
-                        found_gov_unit_refs.append(unit_ref)
-                        found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages+= int(value)
+                                
+                            else:
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                        Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
-                        print("========================\n")
+                                Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages+= int(value)
+
+                        elif kpi_name == "NumberOfWorkersForRemunerationOrSalaryOrWages":
+                            
+                            if contextRef == "D_Male_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
+
+                            elif contextRef == "D_Female_p5":
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
+                            
+                            else:
+                                extended_kpi_name = f"{kpi_name}--{contextRef}"
+                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_referance_unit.append(contextRef)
+                                found_gov_values.append(value)
+                                found_gov_decimals.append(decimal)
+                                found_gov_unit_refs.append(unit_ref)
+                                found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
+                                print("========================\n")
 
             else:
                 for element in elements:
@@ -180,7 +195,7 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                         else:
                             period = 'NA'
 
-                        if "2023" in startPeriod.text:
+                        if "2024" in startPeriod.text:
                             found_gov_kpi_names.append(kpi_name)
                             found_gov_referance_unit.append(contextRef)
                             found_gov_values.append(value)

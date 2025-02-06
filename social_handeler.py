@@ -34,309 +34,310 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                     else:
                         period = 'NA'
 
-                    if kpi_name == "TotalNumberOfTrainingAndAwarenessProgramsHeld":
+                    if "2023" in startPeriod.text:
+                        if kpi_name == "TotalNumberOfTrainingAndAwarenessProgramsHeld":
 
-                        extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                        found_social_kpi_names.append(extended_KPI_Name)
-                        found_social_referance_unit.append(contextRef)
-                        TotalNumberOfTrainingAndAwarenessProgramsHeld_value += int(value)
-                        found_social_values.append(value)
-                        found_social_decimals.append(decimal)
-                        found_social_unit_refs.append(unit_ref)
-                        found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                        print("---------------------------- \n")
-
-                    elif kpi_name == "TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues":
-
-                        extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                        found_social_kpi_names.append(extended_KPI_Name)
-                        found_social_referance_unit.append(contextRef)
-                        TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues_value += int(value)
-                        found_social_values.append(value)
-                        found_social_decimals.append(decimal)
-                        found_social_unit_refs.append(unit_ref)
-                        found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                        print("---------------------------- \n")
-
-                    elif kpi_name == "PercentageOfPersonsInRespectiveCategoryCoveredByTheAwarenessProgrammes":
-
-                        if contextRef == "D_BoardOfDirectorsSegment":
                             extended_KPI_Name = f"{kpi_name}_{contextRef}"
                             found_social_kpi_names.append(extended_KPI_Name)
                             found_social_referance_unit.append(contextRef)
-                            found_social_values.append(f"{float(value)*100}%")
+                            TotalNumberOfTrainingAndAwarenessProgramsHeld_value += int(value)
+                            found_social_values.append(value)
                             found_social_decimals.append(decimal)
                             found_social_unit_refs.append(unit_ref)
-                            found_social_periods.append(f"{startPeriod}--{endPeriod}")
+                            found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                             print("---------------------------- \n")
 
-                        elif contextRef == "D_KeyManagerialPersonnelSegment":
+                        elif kpi_name == "TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues":
+
                             extended_KPI_Name = f"{kpi_name}_{contextRef}"
                             found_social_kpi_names.append(extended_KPI_Name)
                             found_social_referance_unit.append(contextRef)
-                            found_social_values.append(f"{float(value)*100}%")
+                            TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues_value += int(value)
+                            found_social_values.append(value)
                             found_social_decimals.append(decimal)
                             found_social_unit_refs.append(unit_ref)
-                            found_social_periods.append(f"{startPeriod}--{endPeriod}")
+                            found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
                             print("---------------------------- \n")
 
-                        elif contextRef == "D_EmployeesOtherThanBoDAndKMPsSegment":
-                            extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                            found_social_kpi_names.append(extended_KPI_Name)
-                            found_social_referance_unit.append(contextRef)
-                            found_social_values.append(f"{float(value)*100}%")
-                            found_social_decimals.append(decimal)
-                            found_social_unit_refs.append(unit_ref)
-                            found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                            print("---------------------------- \n")
+                        elif kpi_name == "PercentageOfPersonsInRespectiveCategoryCoveredByTheAwarenessProgrammes":
 
-                        elif contextRef == "D_WorkersSegment":
-                            extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                            found_social_kpi_names.append(extended_KPI_Name)
-                            found_social_referance_unit.append(contextRef)
-                            found_social_values.append(f"{float(value)*100}%")
-                            found_social_decimals.append(decimal)
-                            found_social_unit_refs.append(unit_ref)
-                            found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                            print("---------------------------- \n")
+                            if contextRef == "D_BoardOfDirectorsSegment":
+                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                found_social_kpi_names.append(extended_KPI_Name)
+                                found_social_referance_unit.append(contextRef)
+                                found_social_values.append(f"{float(value)*100}%")
+                                found_social_decimals.append(decimal)
+                                found_social_unit_refs.append(unit_ref)
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
-                    elif kpi_name == "ConsumerComplaintsReceivedDuringTheYear":
-                        if "2023" in startPeriod.text:                                                         #time perriod check
-                            if contextRef == "D_DataPrivacy":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                                print("---------------------------- \n")
-                            elif contextRef == "D_Other_PY":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                                print("---------------------------- \n")
-                            elif contextRef == "D_Advertising":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                                print("---------------------------- \n")
-                            elif contextRef == "D_CyberSecurity":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                                print("---------------------------- \n")
-                            elif contextRef == "D_DeliveryOfEssentialServices":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                                print("---------------------------- \n")
-                            elif contextRef == "D_RestrictiveTradePractices":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                                print("---------------------------- \n")
-                            elif contextRef == "D_UnfairTradePractices":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
                                 print("---------------------------- \n")
 
-                    elif kpi_name == "NumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues":
-                        if "2023" in startPeriod.text:                                                         #time perriod check
-                            if contextRef == "D_PermanentEmployees_p5":
-                                TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
-                                print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                            elif contextRef == "D_KeyManagerialPersonnelSegment":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_social_kpi_names.append(extended_KPI_Name)
                                 found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
+                                found_social_values.append(f"{float(value)*100}%")
                                 found_social_decimals.append(decimal)
                                 found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                print("---------------------------- \n")
+
+                            elif contextRef == "D_EmployeesOtherThanBoDAndKMPsSegment":
+                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                found_social_kpi_names.append(extended_KPI_Name)
+                                found_social_referance_unit.append(contextRef)
+                                found_social_values.append(f"{float(value)*100}%")
+                                found_social_decimals.append(decimal)
+                                found_social_unit_refs.append(unit_ref)
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                print("---------------------------- \n")
+
+                            elif contextRef == "D_WorkersSegment":
+                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                found_social_kpi_names.append(extended_KPI_Name)
+                                found_social_referance_unit.append(contextRef)
+                                found_social_values.append(f"{float(value)*100}%")
+                                found_social_decimals.append(decimal)
+                                found_social_unit_refs.append(unit_ref)
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                print("---------------------------- \n")
+
+                        elif kpi_name == "ConsumerComplaintsReceivedDuringTheYear":
+                            if "2023" in startPeriod.text:                                                         #time perriod check
+                                if contextRef == "D_DataPrivacy":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_Other_PY":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_Advertising":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_CyberSecurity":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_DeliveryOfEssentialServices":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_RestrictiveTradePractices":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_UnfairTradePractices":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    print("---------------------------- \n")
+
+                        elif kpi_name == "NumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues":
+                            if "2023" in startPeriod.text:                                                         #time perriod check
+                                if contextRef == "D_PermanentEmployees_p5":
+                                    TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
+                                    print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                    
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_OtherThanPermanentEmployees_p5":
+                                    TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
+                                    print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_Employees_p5":
+                                    TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
+                                    print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_PermanentWorkers_p5":
+                                    TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
+                                    print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_OtherThanPermanentWorkers_p5":
+                                    TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
+                                    print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_Workers_p5":
+                                    TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
+                                    print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(value)
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
                                 
-                                print("---------------------------- \n")
-                            elif contextRef == "D_OtherThanPermanentEmployees_p5":
-                                TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
-                                print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
+                        elif kpi_name == "PercentageOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues":
+                            if "2023" in startPeriod.text:                                                       #time perriod check
+                                if contextRef == "D_PermanentEmployees_p5":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_OtherThanPermanentEmployees_p5":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_Employees_p5":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_PermanentWorkers_p5":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_OtherThanPermanentWorkers_p5":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+                                elif contextRef == "D_Workers_p5":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+
+                        elif kpi_name == "NumberOfEmployeesOrWhoseFamilyMembersRehabilitatedAndPlacedInSuitableEmployment" or kpi_name == "NumberOfWorkersOrWhoseFamilyMembersRehabilitatedAndPlacedInSuitableEmployment" or kpi_name == "TotalComplaintsReportedUnderSexualHarassmentOfWomenAtWorkplace":
+                            if "2023" in startPeriod.text:
+                                found_social_kpi_names.append(kpi_name)
                                 found_social_referance_unit.append(contextRef)
                                 found_social_values.append(value)
                                 found_social_decimals.append(decimal)
                                 found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                                 print("---------------------------- \n")
-                            elif contextRef == "D_Employees_p5":
-                                TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
-                                print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_PermanentWorkers_p5":
-                                TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
-                                print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_OtherThanPermanentWorkers_p5":
-                                TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
-                                print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_Workers_p5":
-                                TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value += int(value)
-                                print(f"Total_Value: {TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value}")
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(value)
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
+                        
+                        elif "Percentage" in kpi_name:
+                            found_social_kpi_names.append(kpi_name)
+                            found_social_referance_unit.append(contextRef)
+                            found_social_values.append(f"{float(value)*100}%")
+                            found_social_decimals.append(decimal)
+                            found_social_unit_refs.append(unit_ref)
+                            found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
                             
-                    elif kpi_name == "PercentageOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues":
-                        if "2023" in startPeriod.text:                                                       #time perriod check
-                            if contextRef == "D_PermanentEmployees_p5":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(f"{float(value)*100}%")
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
+                            print("---------------------------- \n")
 
-                                print("---------------------------- \n")
-                            elif contextRef == "D_OtherThanPermanentEmployees_p5":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(f"{float(value)*100}%")
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_Employees_p5":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(f"{float(value)*100}%")
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_PermanentWorkers_p5":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(f"{float(value)*100}%")
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_OtherThanPermanentWorkers_p5":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(f"{float(value)*100}%")
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-                            elif contextRef == "D_Workers_p5":
-                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_social_kpi_names.append(extended_KPI_Name)
-                                found_social_referance_unit.append(contextRef)
-                                found_social_values.append(f"{float(value)*100}%")
-                                found_social_decimals.append(decimal)
-                                found_social_unit_refs.append(unit_ref)
-                                found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
-                                print("---------------------------- \n")
-
-                    elif kpi_name == "NumberOfEmployeesOrWhoseFamilyMembersRehabilitatedAndPlacedInSuitableEmployment" or kpi_name == "NumberOfWorkersOrWhoseFamilyMembersRehabilitatedAndPlacedInSuitableEmployment" or kpi_name == "TotalComplaintsReportedUnderSexualHarassmentOfWomenAtWorkplace":
-                        if "2023" in startPeriod.text:
+                        else:
                             found_social_kpi_names.append(kpi_name)
                             found_social_referance_unit.append(contextRef)
                             found_social_values.append(value)
                             found_social_decimals.append(decimal)
                             found_social_unit_refs.append(unit_ref)
-                            found_social_periods.append(f"{startPeriod}--{endPeriod}")
-
+                            found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                                
                             print("---------------------------- \n")
-                    
-                    elif "Percentage" in kpi_name:
-                        found_social_kpi_names.append(kpi_name)
-                        found_social_referance_unit.append(contextRef)
-                        found_social_values.append(f"{float(value)*100}%")
-                        found_social_decimals.append(decimal)
-                        found_social_unit_refs.append(unit_ref)
-                        found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                        
-                        print("---------------------------- \n")
-
-                    else:
-                        found_social_kpi_names.append(kpi_name)
-                        found_social_referance_unit.append(contextRef)
-                        found_social_values.append(value)
-                        found_social_decimals.append(decimal)
-                        found_social_unit_refs.append(unit_ref)
-                        found_social_periods.append(f"{startPeriod}--{endPeriod}")
-                        
-                        print("---------------------------- \n")
         else:
             not_found_social_kpi_names.append(kpi_name)
             print(f"🔴Element not found for {kpi_name}🔴\n")
