@@ -173,3 +173,5 @@ cython_debug/
 myenv/
 
 __pycache__/
+new_xml/
+new_exls/

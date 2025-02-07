@@ -103,5 +103,3 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
     print(len(not_found_env_kpi_names))
 
     return found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names
-
-
