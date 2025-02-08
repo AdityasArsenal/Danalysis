@@ -16,7 +16,8 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
 
     for kpi_name in social_kpi_names:
         g += 1
-        print(f'{g}.')
+        print(f'{g}.{kpi_name}')
+
 
         elements = root.findall(f'.//in-capmkt:{kpi_name}', namespaces=namespaces)
 
@@ -47,6 +48,52 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                             found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                             print("---------------------------- \n")
+
+                        elif kpi_name == "Turnover":
+                            extended_KPI_Name = "Total_Turnover"
+                            found_social_kpi_names.append(extended_KPI_Name)
+                            found_social_referance_unit.append(contextRef)
+                            found_social_values.append(value)
+                            found_social_decimals.append(decimal)
+                            found_social_unit_refs.append(unit_ref)
+                            found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                            print("---------------------------- \n")
+
+                        elif kpi_name == "TurnoverRate":
+
+                            if contextRef == "D_Male_PermanentEmployees_TableB_TurnOverRate_CY":
+                                extended_KPI_Name = "Total_Turnover_Rate"
+                                found_social_kpi_names.append(extended_KPI_Name)
+                                found_social_referance_unit.append(contextRef)
+                                found_social_values.append(value)
+                                found_social_decimals.append(decimal)
+                                found_social_unit_refs.append(unit_ref)
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                print("---------------------------- \n")
+
+                            elif contextRef == "D_Female_PermanentEmployees_TableB_TurnOverRate_CY":
+                                extended_KPI_Name = "Total_Turnover_Rate"
+                                found_social_kpi_names.append(extended_KPI_Name)
+                                found_social_referance_unit.append(contextRef)
+                                found_social_values.append(value)
+                                found_social_decimals.append(decimal)
+                                found_social_unit_refs.append(unit_ref)
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                print("---------------------------- \n")
+
+                            elif contextRef == "D_OtherGender_PermanentEmployees_TableB_TurnOverRate_CY":
+                                extended_KPI_Name = "Total_Turnover_Rate"
+                                found_social_kpi_names.append(extended_KPI_Name)
+                                found_social_referance_unit.append(contextRef)
+                                found_social_values.append(value)
+                                found_social_decimals.append(decimal)
+                                found_social_unit_refs.append(unit_ref)
+                                found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                print("---------------------------- \n")
 
                         elif kpi_name == "TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues":
 
@@ -340,7 +387,7 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                             print("---------------------------- \n")
         else:
             not_found_social_kpi_names.append(kpi_name)
-            print(f"🔴Element not found for {kpi_name}🔴\n")
+            print(f"🔴Element not found for {kpi_name}\n")
 
     found_social_kpi_names.append("Actual_TotalNumberOfTrainingAndAwarenessProgramsHeld_value")
     found_social_values.append(TotalNumberOfTrainingAndAwarenessProgramsHeld_value)

@@ -13,7 +13,8 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
 
     for kpi_name in env_kpi_names:
         g += 1
-        print(f'{g}.')
+        
+        print(f'{g}.{kpi_name}')
 
         elements = root.findall(f'.//in-capmkt:{kpi_name}', namespaces=namespaces)
 
@@ -92,7 +93,7 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
                             print("---------------------------- \n")
         else:
             not_found_env_kpi_names.append(kpi_name)
-            print(f"🔴Element not found for {kpi_name}🔴\n")
+            print(f"🔴Element not found for {kpi_name}\n")
 
     print(len(found_env_kpi_names))
     print(len(found_env_values))

@@ -33,13 +33,11 @@ def adder(KPIs, Values, Referance_Unit, Units, Periods, Decimals, Not_Found,comp
     new_sheet = wb.create_sheet(sheet_name)
     
     # Add headers
-    headers = ['Name', 'KPI', 'Value', 'Unit', 'Period', 'Decimal', 'Referance_Unit', 'Not_Found', 'xml_urls']
+    headers = ['Name', 'KPI', 'Value', 'Unit', 'Period', 'Decimal', 'Referance_Unit', 'xml_urls' , 'Not_Found']
     for col, header in enumerate(headers, 1):
-        print(header)
-        print(col)
-        print("--------------------------------")
         new_sheet.cell(row=1, column=col, value=header)
     
+
     # Add data for found KPIs
     for i, (kpi, value, ref_unit, unit, period, decimal,xml_url) in enumerate(zip(KPIs, Values, Referance_Unit, Units, Periods, Decimals,xml_urls), 2):
 

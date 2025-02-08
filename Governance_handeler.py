@@ -18,7 +18,7 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
     for kpi_name in env_kpi_names:
         g += 1
-        print(f'{g}.')
+        print(f'{g}.{kpi_name}')
 
         elements = root.findall(f'.//in-capmkt:{kpi_name}', namespaces=namespaces)
 
@@ -39,7 +39,6 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                         period = 'NA'
 
                     if "2023" in startPeriod.text:
-
                         if kpi_name == "NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages":
                             
                             if contextRef == "D_Male_p5":
@@ -179,7 +178,7 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                                 found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                                 Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
-                                print("========================\n")
+                                print("---------------------------- \n")
 
             else:
                 for element in elements:
@@ -195,7 +194,7 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                         else:
                             period = 'NA'
 
-                        if "2024" in startPeriod.text:
+                        if "2023" in startPeriod.text:
                             found_gov_kpi_names.append(kpi_name)
                             found_gov_referance_unit.append(contextRef)
                             found_gov_values.append(value)
@@ -206,7 +205,7 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                             print("---------------------------- \n")
         else:
             not_found_gov_kpi_names.append(kpi_name)
-            print(f"🔴Element not found for {kpi_name}🔴\n")
+            print(f"🔴Element not found for {kpi_name}\n")
 
     found_gov_kpi_names.append("Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages")
     found_gov_values.append(Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages)
