@@ -230,8 +230,8 @@ for company_name,file_name in zip(company_names,file_names):
     found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names =  get_gov_data_from_xml(root, namespaces, gov_kpi_names)
 
     inserted_company_id = insertion_company(company_name)
-    inserted_company_ids.extend(inserted_company_id)
-    inserted_company_names.extend(company_name)
+    inserted_company_ids.append(inserted_company_id)
+    inserted_company_names.append(company_name)
 
 
     inserted_kpi_env_namess, inserted_kpi_env_definitions_idss = insertion_kpi_definition("79aa665d-fdf5-4ad4-8550-727590914348", found_env_kpi_names, found_env_unit_refs, found_env_decimals,found_env_referance_unit,inserted_kpi_env_names,inserted_kpi_env_definitions_ids)
@@ -255,7 +255,7 @@ for company_name,file_name in zip(company_names,file_names):
     # adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,company_name,"env_res",urls)
     # adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names,company_name,"gov info",urls)
 
-
+print("+++++++++++++++++++++++++++")
 print(len(inserted_company_names))
 print(len(inserted_company_ids))
 print(len(inserted_kpi_env_definitions_ids))
@@ -263,7 +263,7 @@ print(len(inserted_kpi_gov_definitions_ids))
 print(len(inserted_kpi_social_definitions_ids))
 
 
-for inserted_company_name,inserted_company_id, inserted_kpi_env_name, inserted_kpi_env_definitions_id, inserted_kpi_gov_name, inserted_kpi_gov_definitions_id, inserted_kpi_social_name, inserted_kpi_social_definitions_id in zip(inserted_company_names,inserted_company_ids,inserted_kpi_env_names,inserted_kpi_env_definitions_ids,inserted_kpi_gov_names,inserted_kpi_gov_definitions_ids,inserted_kpi_social_names,inserted_kpi_social_definitions_ids):
+for inserted_company_name,inserted_company_id, inserted_kpi_env_name, inserted_kpi_env_definitions_id, inserted_kpi_gov_name, inserted_kpi_gov_definitions_id, inserted_kpi_social_name, inserted_kpi_social_definitions_id in zip(inserted_company_names,inserted_company_ids,inserted_kpi_env_names[0:5],inserted_kpi_env_definitions_ids[0:5],inserted_kpi_gov_names[0:5],inserted_kpi_gov_definitions_ids[0:5],inserted_kpi_social_names[0:5],inserted_kpi_social_definitions_ids[0:5]):
 
     print(f"{inserted_company_name}-{inserted_company_id}")
     print("================================")
