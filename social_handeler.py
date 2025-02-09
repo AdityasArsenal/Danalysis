@@ -63,18 +63,19 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                         elif kpi_name == "TurnoverRate":
 
                             if contextRef == "D_Male_PermanentEmployees_TableB_TurnOverRate_CY":
-                                extended_KPI_Name = "Total_Turnover_Rate"
+                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_social_kpi_names.append(extended_KPI_Name)
                                 found_social_referance_unit.append(contextRef)
                                 found_social_values.append(value)
                                 found_social_decimals.append(decimal)
+
                                 found_social_unit_refs.append(unit_ref)
                                 found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                                 print("---------------------------- \n")
 
                             elif contextRef == "D_Female_PermanentEmployees_TableB_TurnOverRate_CY":
-                                extended_KPI_Name = "Total_Turnover_Rate"
+                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_social_kpi_names.append(extended_KPI_Name)
                                 found_social_referance_unit.append(contextRef)
                                 found_social_values.append(value)
@@ -85,7 +86,7 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                                 print("---------------------------- \n")
 
                             elif contextRef == "D_OtherGender_PermanentEmployees_TableB_TurnOverRate_CY":
-                                extended_KPI_Name = "Total_Turnover_Rate"
+                                extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_social_kpi_names.append(extended_KPI_Name)
                                 found_social_referance_unit.append(contextRef)
                                 found_social_values.append(value)
@@ -366,6 +367,19 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
 
                                 print("---------------------------- \n")
                         
+                        elif kpi_name == "NumberOfPersonsBenefittedFromCSRProjects":
+                            if "2023" in startPeriod.text:
+                                if contextRef == "CSRProjectsAxis1":
+                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
+                                    found_social_kpi_names.append(extended_KPI_Name)
+                                    found_social_referance_unit.append(contextRef)
+                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_decimals.append(decimal)   
+                                    found_social_unit_refs.append(unit_ref)
+                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+
+                                    print("---------------------------- \n")
+
                         elif "Percentage" in kpi_name:
                             found_social_kpi_names.append(kpi_name)
                             found_social_referance_unit.append(contextRef)

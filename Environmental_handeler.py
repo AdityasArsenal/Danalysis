@@ -44,6 +44,7 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
                                 print("---------------------------- \n")
+                                
                             elif contextRef == "D_EWaste":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_env_kpi_names.append(extended_KPI_Name)
@@ -53,6 +54,7 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
                                 print("---------------------------- \n")
+
                             elif contextRef == "D_HazardousWaste":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_env_kpi_names.append(extended_KPI_Name)
@@ -62,6 +64,7 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
                                 print("---------------------------- \n")
+                            
                             elif contextRef == "D_OtherWaste1":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                 found_env_kpi_names.append(extended_KPI_Name)

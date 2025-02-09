@@ -48,4 +48,23 @@ def download_xml_files(file_path) -> None:
         except requests.RequestException as e:
             print(f"❌ Error downloading {url}: {str(e)}")
     
+    # Remove any duplicate company names while preserving order
+    seen = set()
+    unique_companies = []
+    unique_files = []
+    unique_urls = []
+
+    for i, (company, file, url) in enumerate(zip(company_names, file_names, urls)):
+        if company not in seen:
+            seen.add(company)
+            unique_companies.append(company)
+            unique_files.append(file) 
+            unique_urls.append(url)
+
+    company_names = unique_companies
+    file_names = unique_files
+    urls = unique_urls
+
+
     return company_names,file_names,urls
+

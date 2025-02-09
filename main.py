@@ -4,11 +4,10 @@ from Environmental_handeler import get_env_data_from_xml
 from Governance_handeler import get_gov_data_from_xml
 from add_data_to_sheet import adder
 from scraper import download_xml_files
-from r1 import insertion
+from r1 import insertion_company,insertion_kpi_definition,insertion_company_kpi_data
 
 # List of URLs to download
 company_names,file_names,urls = download_xml_files('All_xml_links24_25.xlsx')
-
 
 social_kpi_names = [
     #"TrainingAndAwareness",
@@ -151,7 +150,6 @@ env_kpi_names = [
     'WaterWithdrawalBySeawaterDesalinatedWater',#####
     'WaterWithdrawalByOther',#####
     'TotalWaterConsumption',#####
-    'TotalWaterDischargedInKilolitres',
     'TotalWaterDischargedToGroundwaterWithTreatment',#####removable
     'WaterDischargeToGroundwaterWithOutTreatment',
     'WaterDischargeToSurfaceWaterWithTreatment',
@@ -204,6 +202,18 @@ gov_kpi_names = [
     "MedianOfRemunerationOrSalaryOrWagesOfWorkers",
 ]
 
+inserted_company_names = []
+inserted_company_ids = []
+
+inserted_kpi_env_names = []
+inserted_kpi_env_definitions_ids = []
+
+inserted_kpi_gov_names = []
+inserted_kpi_gov_definitions_ids = []
+
+inserted_kpi_social_names = []
+inserted_kpi_social_definitions_ids = []
+
 company_counter = 0
 for company_name,file_name in zip(company_names,file_names):
     namespaces = { 
@@ -211,24 +221,59 @@ for company_name,file_name in zip(company_names,file_names):
         'in-capmkt': 'https://www.sebi.gov.in/xbrl/2024-04-30/in-capmkt'
     }
     
+
     tree = ET.parse(file_name)
     root = tree.getroot()
     
     found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names = get_social_data_from_xml(root, namespaces,social_kpi_names)
     found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names = get_env_data_from_xml(root, namespaces, env_kpi_names)
     found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names =  get_gov_data_from_xml(root, namespaces, gov_kpi_names)
-    
 
-    adder(found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names,company_name,"social info",urls)
-    adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,company_name,"env_res",urls)
-    adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names,company_name,"gov info",urls)
-
-
-    insertion(company_name, "79aa665d-fdf5-4ad4-8550-727590914348", found_env_kpi_names,found_env_values,found_env_unit_refs,found_env_referance_unit,found_env_periods,found_env_decimals,company_counter)
-    insertion(company_name, "8f7b1de0-ff85-4d90-84af-61119dc77b39", found_gov_kpi_names,found_gov_values,found_gov_unit_refs,found_gov_referance_unit,found_gov_periods,found_gov_decimals,company_counter)
-    insertion(company_name, "f4f14038-ce0e-46ca-b453-d421a90e191b", found_social_kpi_names,found_social_values,found_social_unit_refs,found_social_referance_unit,found_social_periods,found_social_decimals,company_counter)
+    inserted_company_id = insertion_company(company_name)
+    inserted_company_ids.extend(inserted_company_id)
+    inserted_company_names.extend(company_name)
 
 
+    inserted_kpi_env_namess, inserted_kpi_env_definitions_idss = insertion_kpi_definition("79aa665d-fdf5-4ad4-8550-727590914348", found_env_kpi_names, found_env_unit_refs, found_env_decimals,found_env_referance_unit,inserted_kpi_env_names,inserted_kpi_env_definitions_ids)
+    inserted_kpi_env_names.extend(inserted_kpi_env_namess)
+    inserted_kpi_env_definitions_ids.extend(inserted_kpi_env_definitions_idss)
 
-    company_counter += 1
+    inserted_kpi_gov_namess, inserted_kpi_gov_definitions_idss = insertion_kpi_definition("8f7b1de0-ff85-4d90-84af-61119dc77b39", found_gov_kpi_names, found_gov_unit_refs, found_gov_decimals,found_gov_referance_unit,inserted_kpi_gov_names,inserted_kpi_gov_definitions_ids) 
+    inserted_kpi_gov_names.extend(inserted_kpi_gov_namess)
+    inserted_kpi_gov_definitions_ids.extend(inserted_kpi_gov_definitions_idss)
+
+    inserted_kpi_social_namess, inserted_kpi_social_definitions_idss = insertion_kpi_definition("f4f14038-ce0e-46ca-b453-d421a90e191b", found_social_kpi_names, found_social_unit_refs, found_social_decimals, found_social_referance_unit,inserted_kpi_social_names,inserted_kpi_social_definitions_ids)
+    inserted_kpi_social_names.extend(inserted_kpi_social_namess)
+    inserted_kpi_social_definitions_ids.extend(inserted_kpi_social_definitions_idss)
+
+
+    insertion_company_kpi_data(inserted_company_id, found_env_kpi_names, inserted_kpi_env_names, inserted_kpi_env_definitions_ids, found_env_values, found_env_periods)  
+    insertion_company_kpi_data(inserted_company_id, found_gov_kpi_names, inserted_kpi_gov_names, inserted_kpi_gov_definitions_ids, found_gov_values, found_gov_periods)
+    insertion_company_kpi_data(inserted_company_id, found_social_kpi_names, inserted_kpi_social_names, inserted_kpi_social_definitions_ids, found_social_values, found_social_periods)
+
+    # adder(found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names,company_name,"social info",urls)
+    # adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,company_name,"env_res",urls)
+    # adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names,company_name,"gov info",urls)
+
+
+print(len(inserted_company_names))
+print(len(inserted_company_ids))
+print(len(inserted_kpi_env_definitions_ids))
+print(len(inserted_kpi_gov_definitions_ids))
+print(len(inserted_kpi_social_definitions_ids))
+
+
+for inserted_company_name,inserted_company_id, inserted_kpi_env_name, inserted_kpi_env_definitions_id, inserted_kpi_gov_name, inserted_kpi_gov_definitions_id, inserted_kpi_social_name, inserted_kpi_social_definitions_id in zip(inserted_company_names,inserted_company_ids,inserted_kpi_env_names,inserted_kpi_env_definitions_ids,inserted_kpi_gov_names,inserted_kpi_gov_definitions_ids,inserted_kpi_social_names,inserted_kpi_social_definitions_ids):
+
+    print(f"{inserted_company_name}-{inserted_company_id}")
+    print("================================")
+    print(f"{inserted_kpi_env_name}-{inserted_kpi_env_definitions_id}")
+    print("--------------------------------")
+    print(f"{inserted_kpi_gov_name}-{inserted_kpi_gov_definitions_id}")
+    print("--------------------------------")
+    print(f"{inserted_kpi_social_name}-{inserted_kpi_social_definitions_id}")
+    print("--------------------------------")
+
+
+    #company_counter += 1
 
