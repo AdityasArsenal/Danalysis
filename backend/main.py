@@ -1,13 +1,13 @@
 import xml.etree.ElementTree as ET
-from Social_handeler import get_social_data_from_xml
-from Environmental_handeler import get_env_data_from_xml
-from Governance_handeler import get_gov_data_from_xml
+from backend.KSocial_handeler import get_social_data_from_xml
+from backend.KEnvironmental_handeler import get_env_data_from_xml
+from backend.KGovernance_handeler import get_gov_data_from_xml
 from add_data_to_sheet import adder
 from scraper import download_xml_files
 from r1 import insertion_company,insertion_kpi_definition,insertion_company_kpi_data
 
 # List of URLs to download
-company_names,file_names,urls = download_xml_files('All_xml_links24_25.xlsx')
+company_names,file_names,urls = download_xml_files('extra_stuff/All_xml_links24_25.xlsx')
 
 social_kpi_names = [
     #"TrainingAndAwareness",
@@ -229,6 +229,24 @@ for company_name,file_name in zip(company_names,file_names):
     found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names = get_env_data_from_xml(root, namespaces, env_kpi_names)
     found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names =  get_gov_data_from_xml(root, namespaces, gov_kpi_names)
 
+    # for found_social_kpi_name,found_social_value in zip(found_social_kpi_names,found_social_values):
+    #     print(f"{found_social_kpi_name}----=----{found_social_value}")
+    #     print(f"{company_name}")
+    # print("--------------------------------")
+
+    # for found_env_kpi_name,found_env_value in zip(found_env_kpi_names,found_env_values):
+    #     print(f"{found_env_kpi_name}----=----{found_env_value}")
+
+    # print("--------------------------------")
+
+    # for found_gov_kpi_name,found_gov_value in zip(found_gov_kpi_names,found_gov_values):
+    #     print(f"{found_gov_kpi_name}----=----{found_gov_value}")
+
+
+
+    #company_counter += 1
+
+
     inserted_company_id = insertion_company(company_name)
     inserted_company_ids.append(inserted_company_id)
     inserted_company_names.append(company_name)
@@ -251,29 +269,29 @@ for company_name,file_name in zip(company_names,file_names):
     insertion_company_kpi_data(inserted_company_id, found_gov_kpi_names, inserted_kpi_gov_names, inserted_kpi_gov_definitions_ids, found_gov_values, found_gov_periods)
     insertion_company_kpi_data(inserted_company_id, found_social_kpi_names, inserted_kpi_social_names, inserted_kpi_social_definitions_ids, found_social_values, found_social_periods)
 
-    # adder(found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names,company_name,"social info",urls)
-    # adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,company_name,"env_res",urls)
-    # adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names,company_name,"gov info",urls)
+    adder(found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names,company_name,"social info",urls)
+    adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,company_name,"env_res",urls)
+    adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names,company_name,"gov info",urls)
 
 print("+++++++++++++++++++++++++++")
-print(len(inserted_company_names))
-print(len(inserted_company_ids))
-print(len(inserted_kpi_env_definitions_ids))
-print(len(inserted_kpi_gov_definitions_ids))
-print(len(inserted_kpi_social_definitions_ids))
+print(f"number of companies inserted={len(inserted_company_names)}")
+print(f"number of env kpi inserted={len(inserted_kpi_env_definitions_ids)}")
+print(f"number of gov kpi inserted={len(inserted_kpi_gov_definitions_ids)}")
+print(f"number of social kpi inserted={len(inserted_kpi_social_definitions_ids)}")
 
 
-for inserted_company_name,inserted_company_id, inserted_kpi_env_name, inserted_kpi_env_definitions_id, inserted_kpi_gov_name, inserted_kpi_gov_definitions_id, inserted_kpi_social_name, inserted_kpi_social_definitions_id in zip(inserted_company_names,inserted_company_ids,inserted_kpi_env_names[0:5],inserted_kpi_env_definitions_ids[0:5],inserted_kpi_gov_names[0:5],inserted_kpi_gov_definitions_ids[0:5],inserted_kpi_social_names[0:5],inserted_kpi_social_definitions_ids[0:5]):
 
-    print(f"{inserted_company_name}-{inserted_company_id}")
-    print("================================")
-    print(f"{inserted_kpi_env_name}-{inserted_kpi_env_definitions_id}")
-    print("--------------------------------")
-    print(f"{inserted_kpi_gov_name}-{inserted_kpi_gov_definitions_id}")
-    print("--------------------------------")
-    print(f"{inserted_kpi_social_name}-{inserted_kpi_social_definitions_id}")
-    print("--------------------------------")
+# for inserted_company_name,inserted_company_id, inserted_kpi_env_name, inserted_kpi_env_definitions_id, inserted_kpi_gov_name, inserted_kpi_gov_definitions_id, inserted_kpi_social_name, inserted_kpi_social_definitions_id in zip(inserted_company_names,inserted_company_ids,inserted_kpi_env_names[0:5],inserted_kpi_env_definitions_ids[0:5],inserted_kpi_gov_names[0:5],inserted_kpi_gov_definitions_ids[0:5],inserted_kpi_social_names[0:5],inserted_kpi_social_definitions_ids[0:5]):
+
+#     print(f"{inserted_company_name}-{inserted_company_id}")
+#     print("================================")
+#     print(f"{inserted_kpi_env_name}-{inserted_kpi_env_definitions_id}")
+#     print("--------------------------------")
+#     print(f"{inserted_kpi_gov_name}-{inserted_kpi_gov_definitions_id}")
+#     print("--------------------------------")
+#     print(f"{inserted_kpi_social_name}-{inserted_kpi_social_definitions_id}")
+#     print("--------------------------------")
 
 
-    #company_counter += 1
+
 

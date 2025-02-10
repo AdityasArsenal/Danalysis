@@ -39,7 +39,7 @@ def adder(KPIs, Values, Referance_Unit, Units, Periods, Decimals, Not_Found,comp
     
 
     # Add data for found KPIs
-    for i, (kpi, value, ref_unit, unit, period, decimal,xml_url) in enumerate(zip(KPIs, Values, Referance_Unit, Units, Periods, Decimals,xml_urls), 2):
+    for i, (kpi, value, ref_unit, unit, period, decimal) in enumerate(zip(KPIs, Values, Referance_Unit, Units, Periods, Decimals), 2):
 
         new_sheet.cell(row=i, column=2, value=kpi)
         new_sheet.cell(row=i, column=3, value=value)
@@ -47,7 +47,7 @@ def adder(KPIs, Values, Referance_Unit, Units, Periods, Decimals, Not_Found,comp
         new_sheet.cell(row=i, column=5, value=period)
         new_sheet.cell(row=i, column=6, value=decimal)
         new_sheet.cell(row=i, column=7, value=ref_unit)
-        new_sheet.cell(row=i, column=8, value=xml_url)
+        #new_sheet.cell(row=i, column=8, value=xml_url)
     
     # Add Not Found KPIs in the last column
     for i, not_found_kpi in enumerate(Not_Found, 2):

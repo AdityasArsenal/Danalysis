@@ -1,8 +1,0 @@
-5f1aeca7-1b7a-4308-91c7-33171c8e197b = social
-8c5c9ab6-17a8-489f-8e0d-4e79bb173af5 = env
-ef7d5e58-bae0-484d-97c7-9f6a15c9b04b = gov
-company_kpi_data
-
-
-'40b8ce66-e792-494c-b3cb-255a8149e139'
-'Siemens Limited'

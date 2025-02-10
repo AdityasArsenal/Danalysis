@@ -373,7 +373,7 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                                     extended_KPI_Name = f"{kpi_name}_{contextRef}"
                                     found_social_kpi_names.append(extended_KPI_Name)
                                     found_social_referance_unit.append(contextRef)
-                                    found_social_values.append(f"{float(value)*100}%")
+                                    found_social_values.append(f"{float(value)}")
                                     found_social_decimals.append(decimal)   
                                     found_social_unit_refs.append(unit_ref)
                                     found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
