@@ -3,13 +3,6 @@ import os
 from openai import AzureOpenAI
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
-# Directly assigning values (ensure these are securely managed in production)
-# endpoint = "https://opeanai-servicies.openai.azure.com/openai/deployments/gpt-4o/extensions/chat/completions?api-version=2024-02-15-preview"
-# deployment = "gpt-4o"
-# cognitiveServicesResource = "aisearchservicee"
-# azure_search_endpoint = "https://aisearchservicee.search.windows.net"
-# azure_search_index = "vectorization-open-ada"
-# azure_search_key = "2Bz4dmBVw8zZZ4IzEZ08n5w1YdDu65x1dsX3WpBAgyAzSeCZwpbC"
 
 # Initialize Azure OpenAI client with Entra ID authentication
 token_provider = get_bearer_token_provider(
