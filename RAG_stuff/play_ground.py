@@ -11,6 +11,8 @@ VERBOSE: Downloading build from https://azd-release-gfgac2cmf7b8cuay.b02.azurefd
     f'{cognitiveServicesResource}.default'
 )
 
+srjfg 
+
 client = AzureOpenAI(
     azure_endpoint=endpoint,
     azure_ad_token_provider=token_provider,
