@@ -13,6 +13,7 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
     TotalNumberOfTrainingAndAwarenessProgramsHeld_value = 0
     TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues_value = 0
     TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value = 0
+    Total_NumberOfPersonsBenefittedFromCSRProjects_value = 0
 
     for kpi_name in social_kpi_names:
         g += 1
@@ -369,21 +370,23 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
                                 found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                                 print("---------------------------- \n")
-                        
+                
                         elif kpi_name == "NumberOfPersonsBenefittedFromCSRProjects":
-                            if "2023" in startPeriod.text:
-                                if contextRef == "CSRProjectsAxis1":
-                                    extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                    found_social_kpi_names.append(extended_KPI_Name)
-                                    found_social_referance_unit.append(contextRef)
-                                    found_social_values.append(f"{float(value)}")
-                                    found_social_decimals.append(decimal)   
-                                    found_social_unit_refs.append(unit_ref)
-                                    found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                            Total_NumberOfPersonsBenefittedFromCSRProjects_value += int(value)
+                           
+                            print("---------------------------- \n")
 
-                                    print("---------------------------- \n")
+                        elif "Percentage" in kpi_name:
+                            found_social_kpi_names.append(kpi_name)
+                            found_social_referance_unit.append(contextRef)
+                            found_social_values.append(f"{float(value)*100}%")
+                            found_social_decimals.append(decimal)
+                            found_social_unit_refs.append(unit_ref)
+                            found_social_periods.append(f"{startPeriod.text}--{endPeriod.text}")
+                            
+                            print("---------------------------- \n")
 
-                        elif "Percentage" or "TurnoverRate" in kpi_name:
+                        elif "TurnoverRate" in kpi_name:
                             found_social_kpi_names.append(kpi_name)
                             found_social_referance_unit.append(contextRef)
                             found_social_values.append(f"{float(value)*100}%")
@@ -424,6 +427,14 @@ def get_social_data_from_xml(root, namespaces, social_kpi_names):
 
     found_social_kpi_names.append("Total_NumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value")
     found_social_values.append(TotalNumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value)
+    found_social_referance_unit.append("None")
+    found_social_unit_refs.append("None")
+    found_social_periods.append("None")
+    found_social_decimals.append("None")
+    not_found_social_kpi_names.append("None")
+
+    found_social_kpi_names.append("Total_NumberOfPersonsBenefittedFromCSRProjects_value")
+    found_social_values.append(Total_NumberOfPersonsBenefittedFromCSRProjects_value)
     found_social_referance_unit.append("None")
     found_social_unit_refs.append("None")
     found_social_periods.append("None")

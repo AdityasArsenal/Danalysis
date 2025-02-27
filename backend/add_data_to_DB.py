@@ -27,19 +27,22 @@ def insertion_kpi_definition(kpi_type_id, kpi_names, units, decimals, reference_
             inserted_kpi_definitions_ids.append(kpi_definitions_id)
             inserted_kpi_names.append(kpi_name)
 
-    return inserted_kpi_names, inserted_kpi_definitions_ids
 
 
 
-def insertion_company_kpi_data(inserted_company_id, kpi_names, inserted_kpi_names, inserted_kpi_definitions_ids, values, periods,):
+def insertion_company_kpi_data(inserted_company_id, kpi_names, inserted_kpi_names, inserted_kpi_definitions_ids, values, periods):
 
+    inserted_company_kpi_data_ids = []
     index_map = {name: idx for idx, name in enumerate(inserted_kpi_names)}
     for kpi_name, value, period in zip(kpi_names,values,periods):
         if kpi_name in index_map:
             inserted_kpi_definition_id = inserted_kpi_definitions_ids[index_map[kpi_name]]
             response = supabase.table("company_kpi_data").insert({"company_id":f"{inserted_company_id}","kpi_definition_id":f"{inserted_kpi_definition_id}","value":f"{value}","period":f"{period}"}).execute()
+            
             inserted_company_kpi_data_id = response.data[0]['id']
+            inserted_company_kpi_data_ids.append(inserted_company_kpi_data_id)
 
-            return inserted_company_kpi_data_id
+    
+    return inserted_company_kpi_data_ids
 
             
