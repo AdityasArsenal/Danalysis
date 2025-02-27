@@ -1,17 +1,25 @@
-
 import os
 from openai import AzureOpenAI
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+from dotenv import load_dotenv
 
+# Load env files
+load_dotenv()
+
+# Directly assigning values (ensure these are securely managed in production)
+endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+deployment = os.getenv("AZURE_OPENAI_DEPLOYED_NAME")
+
+cognitiveServicesResource = os.getenv("AZURE_SEARCH_SERVICE_NAME")
+azure_search_endpoint = os.getenv("AZURE_AI_SEARCH_ENDPOINT")
+azure_search_index = os.getenv("AZURE_AI_SEARCH_INDEX")
+azure_search_key = os.getenv("AZURE_SEARCH_API_KEY")
 
 # Initialize Azure OpenAI client with Entra ID authentication
 token_provider = get_bearer_token_provider(
-    DefaultAzureCredential(), powershell -ex AllSigned -c "Invoke-RestMethod 'https://aka.ms/install-azd.ps1' | Invoke-Expression"
-VERBOSE: Downloading build from https://azd-release-gfgac2cmf7b8cuay.b02.azurefd.net/azd/standalone/release/stable/azd-windows-amd64.msi
-    f'{cognitiveServicesResource}.default'
+     DefaultAzureCredential(),
+    "https://cognitiveservices.azure.com/.default"
 )
-
-srjfg 
 
 client = AzureOpenAI(
     azure_endpoint=endpoint,
@@ -22,11 +30,10 @@ client = AzureOpenAI(
 completion = client.chat.completions.create(
     model=deployment,
     messages=[
-        {
-            "role": "system",
-            "content": "You are an AI assistant that helps people find information."
-        }
+        {"role": "system", "content": "You are an AI assistant that helps people find information, from the source provided"},
+        {"role": "user", "content": "Hello, What are the six fields of action in Siemens' DEGREE Sustainability Framework, and how do they guide responsible business practices?"}
     ],
+    
     #past_messages=10,
     max_tokens=800,
     temperature=0.7,
@@ -43,7 +50,7 @@ completion = client.chat.completions.create(
                     "index_name": azure_search_index,
                     "authentication": {
                         "type": "api_key",
-                        "api_key": azure_search_key
+                        "key": azure_search_key
                     }
                 }
             }
@@ -51,4 +58,4 @@ completion = client.chat.completions.create(
     }
 )
 
-print(completion.model_dump_json(indent=2))
+print(completion.model_dump_json(indent=1))
