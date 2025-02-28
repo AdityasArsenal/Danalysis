@@ -5,13 +5,6 @@ from openpyxl import load_workbook
 def download_xml_files(file_path) -> None:
     os.makedirs('new_xml', exist_ok=True)
     headers = {
-
-
-
-    
-
-    
-    
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
 
