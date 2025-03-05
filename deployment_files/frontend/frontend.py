@@ -4,7 +4,7 @@ import requests
 # Backend URL
 WEBHOOK_URL = "https://dana-web-app-backend.azurewebsites.net/chat"
 
-# Initialize session state if not already present
+# Initialize session state if not already presenft
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "conversation_id" not in st.session_state:
