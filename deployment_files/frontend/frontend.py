@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Backend URL
-WEBHOOK_URL = "https://web-app-dana-backend1.azurewebsites.net/chat"
+WEBHOOK_URL = "https://dana-web-app-backend.azurewebsites.net/chat"
 
 # Initialize session state if not already present
 if "messages" not in st.session_state:
