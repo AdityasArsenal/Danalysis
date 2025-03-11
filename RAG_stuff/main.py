@@ -100,3 +100,6 @@ def chat(request: ChatRequest):
     return {"response": model_response, "references": reference_points}
 
 
+@app.get("/")
+def read_root():
+    return {"message": "Hello, world!"}
