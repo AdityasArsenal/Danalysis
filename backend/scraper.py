@@ -2,7 +2,7 @@ import requests
 import os
 from openpyxl import load_workbook
 
-def download_xml_files(file_path) -> None:
+def download_xml_files(file_path,limit) -> None:
     os.makedirs('new_xml', exist_ok=True)
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -24,7 +24,7 @@ def download_xml_files(file_path) -> None:
 
 
     for i, url in enumerate(urls, 0):
-        if i > 10:                                             
+        if i > limit:                                             
           break
         try:
             filename = os.path.join('new_xml', f"{company_names[i]}_.xml")
