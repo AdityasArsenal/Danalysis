@@ -4,19 +4,27 @@ from KEnvironmental_handeler import get_env_data_from_xml
 from KGovernance_handeler import get_gov_data_from_xml
 from add_data_to_sheet import adder
 from scraper import download_xml_files
-#from add_data_to_DB import insertion_company,insertion_kpi_definition,insertion_company_kpi_data
+from add_data_to_DB import (
+    insertion_company,
+    insertion_kpi_definition,
+    batch_insert_context_references,
+    batch_insert_units,
+    batch_insert_company_kpi_data,
+    insert_aggregated_kpi_data
+)
 
 # List of URLs to download
 
-limit = 3
+limit = 5
 company_names,file_names,urls = download_xml_files('extra_stuff/All_xml_links24_25.xlsx',limit)
 
 social_kpi_names = [
     #"TrainingAndAwareness",
+    "PercentageOfPersonsInRespectiveCategoryCoveredByTheAwarenessProgrammes",
+
+    #Training and awareness program chart KPIs
     "TotalNumberOfTrainingAndAwarenessProgramsHeld",
     "TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues",
-
-    "PercentageOfPersonsInRespectiveCategoryCoveredByTheAwarenessProgrammes",
     # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesWorkers",
     # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesBoardOfDirectors",                #neeeds unit check
     # "PercentOfPersonsCoveredByTrainingAndAwarenessProgrammesKeyManagerialPersonnelKMPs",
@@ -212,111 +220,98 @@ gov_kpi_names = [
     "MedianOfRemunerationOrSalaryOrWagesOfWorkers",
 ]
 
-inserted_company_names = []
+
 inserted_company_ids = []
-
-inserted_kpi_env_names = []
 inserted_kpi_env_definitions_ids = []
-
-inserted_kpi_gov_names = []
 inserted_kpi_gov_definitions_ids = []
-
-inserted_kpi_social_names = []
 inserted_kpi_social_definitions_ids = []
-
 total_inserted_company_kpi_data_ids = 0
-
 company_counter = 0
 total_social_kpi_names = 0
-total_env_kpi_names = 0               #to check how many kpi are found IN TOTAL
+total_env_kpi_names = 0
 total_gov_kpi_names = 0
 
-for company_name,file_name in zip(company_names,file_names):
-    namespaces = { 
+for company_name, file_name, url in zip(company_names, file_names, urls):
+    namespaces = {
         'xbrli': 'http://www.xbrl.org/2003/instance',
         'in-capmkt': 'https://www.sebi.gov.in/xbrl/2024-04-30/in-capmkt'
     }
-    
 
     tree = ET.parse(file_name)
     root = tree.getroot()
-    
-    found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names = get_social_data_from_xml(root, namespaces,social_kpi_names)
-    found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names = get_env_data_from_xml(root, namespaces, env_kpi_names)
-    found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names =  get_gov_data_from_xml(root, namespaces, gov_kpi_names)
 
-    for found_social_kpi_name,found_social_value in zip(found_social_kpi_names,found_social_values):
-        print(f"{found_social_kpi_name}----=----{found_social_value}")
-        print(f"{company_name}")
-    print("--------------------------------")
+    # Get data from handlers
+    found_social_kpi_names, found_social_values, found_social_referance_unit, found_social_unit_refs, found_social_periods, found_social_decimals, not_found_social_kpi_names, social_context_refs, found_social_kpi_names_with_contextRef = get_social_data_from_xml(root, namespaces, social_kpi_names)
+    found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names, env_context_refs, found_env_kpi_names_with_contextRef = get_env_data_from_xml(root, namespaces, env_kpi_names)
+    found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names, gov_context_refs, found_gov_kpi_names_with_contextRef = get_gov_data_from_xml(root, namespaces, gov_kpi_names)
 
-    for found_env_kpi_name,found_env_value in zip(found_env_kpi_names,found_env_values):              #TO MAKE SURE THE DATA IS CORRECT
-        print(f"{found_env_kpi_name}----=----{found_env_value}")
+    # Insert company
+    company_id = insertion_company(company_name, file_name, url)
+    inserted_company_ids.append(company_id)
 
-    print("--------------------------------")
+    # Batch insert context references and units
+    all_context_refs = env_context_refs + gov_context_refs + social_context_refs
+    all_unit_refs = found_env_unit_refs + found_gov_unit_refs + found_social_unit_refs
+    context_id_map = batch_insert_context_references(all_context_refs)
+    unit_id_map = batch_insert_units(all_unit_refs)
 
-    for found_gov_kpi_name,found_gov_value in zip(found_gov_kpi_names,found_gov_values):
-        print(f"{found_gov_kpi_name}----=----{found_gov_value}")
+    # Insert KPI definitions
+    env_kpi_id_map = insertion_kpi_definition("Environmental", found_env_kpi_names, found_env_unit_refs, found_env_decimals, found_env_referance_unit)
+    gov_kpi_id_map = insertion_kpi_definition("Governance", found_gov_kpi_names, found_gov_unit_refs, found_gov_decimals, found_gov_referance_unit)
+    social_kpi_id_map = insertion_kpi_definition("Social", found_social_kpi_names, found_social_unit_refs, found_social_decimals, found_social_referance_unit)
 
+    # Batch insert company KPI data
+    env_inserted_ids = batch_insert_company_kpi_data(
+        company_id, found_env_kpi_names, found_env_values, found_env_periods,
+        found_env_referance_unit, found_env_unit_refs, found_env_decimals,
+        env_kpi_id_map, context_id_map, unit_id_map
+    )
+    total_inserted_company_kpi_data_ids += len(env_inserted_ids)
 
+    gov_inserted_ids = batch_insert_company_kpi_data(
+        company_id, found_gov_kpi_names, found_gov_values, found_gov_periods,
+        found_gov_referance_unit, found_gov_unit_refs, found_gov_decimals,
+        gov_kpi_id_map, context_id_map, unit_id_map
+    )
+    total_inserted_company_kpi_data_ids += len(gov_inserted_ids)
+
+    social_inserted_ids = batch_insert_company_kpi_data(
+        company_id, found_social_kpi_names, found_social_values, found_social_periods,
+        found_social_referance_unit, found_social_unit_refs, found_social_decimals,
+        social_kpi_id_map, context_id_map, unit_id_map
+    )
+    total_inserted_company_kpi_data_ids += len(social_inserted_ids)
+
+    # Insert aggregated KPIs
+    aggregated_kpis = [
+        ("Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages", found_gov_values[found_gov_kpi_names.index("Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages")], gov_kpi_id_map),
+        ("Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages", found_gov_values[found_gov_kpi_names.index("Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages")], gov_kpi_id_map),
+        ("Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages", found_gov_values[found_gov_kpi_names.index("Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages")], gov_kpi_id_map),
+        ("Total_NumberOfWorkersForRemunerationOrSalaryOrWages", found_gov_values[found_gov_kpi_names.index("Total_NumberOfWorkersForRemunerationOrSalaryOrWages")], gov_kpi_id_map),
+        ("Actual_TotalNumberOfTrainingAndAwarenessProgramsHeld_value", found_social_values[found_social_kpi_names.index("Actual_TotalNumberOfTrainingAndAwarenessProgramsHeld_value")], social_kpi_id_map),
+        ("Actual_TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues_value", found_social_values[found_social_kpi_names.index("Actual_TotalNumberOfEmployeesOrWorkersForTrainingOnHumanRightsIssues_value")], social_kpi_id_map),
+        ("Total_NumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value", found_social_values[found_social_kpi_names.index("Total_NumberOfEmployeesOrWorkersCoveredForProvidedTrainingOnHumanRightsIssues_value")], social_kpi_id_map),
+        ("Total_NumberOfPersonsBenefittedFromCSRProjects_value", found_social_values[found_social_kpi_names.index("Total_NumberOfPersonsBenefittedFromCSRProjects_value")], social_kpi_id_map),
+    ]
+
+    for kpi_name, value, kpi_id_map in aggregated_kpis:
+        agg_id = insert_aggregated_kpi_data(company_id, kpi_name, value, kpi_id_map)
+        if agg_id:
+            total_inserted_company_kpi_data_ids += 1
+
+    # For data visualization in sheets
+    adder(found_social_kpi_names, found_social_values, found_social_referance_unit, found_social_unit_refs, found_social_periods, found_social_decimals, not_found_social_kpi_names, company_name, "social info", urls)
+    adder(found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names, company_name, "env_res", urls)
+    adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names, company_name, "gov info", urls)
 
     company_counter += 1
-
     total_social_kpi_names += len(found_social_kpi_names)
-    total_env_kpi_names += len(found_env_kpi_names)                 #to check how many kpi are found IN TOTAL
+    total_env_kpi_names += len(found_env_kpi_names)
     total_gov_kpi_names += len(found_gov_kpi_names)
 
     print(f"total social kpi names = {total_social_kpi_names}")
-    print(f"total env kpi names = {total_env_kpi_names}")           #to check how many kpi are found IN TOTAL
+    print(f"total env kpi names = {total_env_kpi_names}")
     print(f"total gov kpi names = {total_gov_kpi_names}")
 
-
-    # inserted_company_id = insertion_company(company_name)
-    # inserted_company_ids.append(inserted_company_id)
-    # inserted_company_names.append(company_name)
-
-
-    # insertion_kpi_definition("79aa665d-fdf5-4ad4-8550-727590914348", found_env_kpi_names, found_env_unit_refs, found_env_decimals,found_env_referance_unit,inserted_kpi_env_names,inserted_kpi_env_definitions_ids)
-    # insertion_kpi_definition("8f7b1de0-ff85-4d90-84af-61119dc77b39", found_gov_kpi_names, found_gov_unit_refs, found_gov_decimals,found_gov_referance_unit,inserted_kpi_gov_names,inserted_kpi_gov_definitions_ids) 
-    # insertion_kpi_definition("f4f14038-ce0e-46ca-b453-d421a90e191b", found_social_kpi_names, found_social_unit_refs, found_social_decimals, found_social_referance_unit,inserted_kpi_social_names,inserted_kpi_social_definitions_ids)
-
-
-    # inserted_company_kpi_data_idss = insertion_company_kpi_data(inserted_company_id, found_env_kpi_names, inserted_kpi_env_names, inserted_kpi_env_definitions_ids, found_env_values, found_env_periods)
-    # total_inserted_company_kpi_data_ids += len(inserted_company_kpi_data_idss)
-
-    # inserted_company_kpi_data_idss = insertion_company_kpi_data(inserted_company_id, found_gov_kpi_names, inserted_kpi_gov_names, inserted_kpi_gov_definitions_ids, found_gov_values, found_gov_periods)
-    # total_inserted_company_kpi_data_ids += len(inserted_company_kpi_data_idss)
-
-    # inserted_company_kpi_data_idss = insertion_company_kpi_data(inserted_company_id, found_social_kpi_names, inserted_kpi_social_names, inserted_kpi_social_definitions_ids, found_social_values, found_social_periods)
-    # total_inserted_company_kpi_data_ids += len(inserted_company_kpi_data_idss)
-
-
-    # FOR DATA VISULIZATION ADDED INTO SHEETS 
-    adder(found_social_kpi_names,found_social_values,found_social_referance_unit,found_social_unit_refs,found_social_periods,found_social_decimals,not_found_social_kpi_names,company_name,"social info",urls)
-    adder(found_env_kpi_names,found_env_values,found_env_referance_unit,found_env_unit_refs,found_env_periods,found_env_decimals,not_found_env_kpi_names,company_name,"env_res",urls)
-    adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names,company_name,"gov info",urls)
-
-print("+++++++++++++++++++++++++++")
-print(f"number of companies inserted={len(inserted_company_names)}")
-print(f"number of env kpi inserted={len(inserted_kpi_env_definitions_ids)}")
-print(f"number of gov kpi inserted={len(inserted_kpi_gov_definitions_ids)}")
-print(f"number of social kpi inserted={len(inserted_kpi_social_definitions_ids)}")
+print(f"number of companies inserted={len(inserted_company_ids)}")
 print(f"number of company kpi data inserted={total_inserted_company_kpi_data_ids}")
-
-
-
-#to check the data inserted in the database
-# for inserted_company_name,inserted_company_id, inserted_kpi_env_name, inserted_kpi_env_definitions_id, inserted_kpi_gov_name, inserted_kpi_gov_definitions_id, inserted_kpi_social_name, inserted_kpi_social_definitions_id in zip(inserted_company_names,inserted_company_ids,inserted_kpi_env_names[0:5],inserted_kpi_env_definitions_ids[0:5],inserted_kpi_gov_names[0:5],inserted_kpi_gov_definitions_ids[0:5],inserted_kpi_social_names[0:5],inserted_kpi_social_definitions_ids[0:5]):
-
-#     print(f"{inserted_company_name}-{inserted_company_id}")
-#     print("================================")
-#     print(f"{inserted_kpi_env_name}-{inserted_kpi_env_definitions_id}")
-#     print("--------------------------------")
-#     print(f"{inserted_kpi_gov_name}-{inserted_kpi_gov_definitions_id}")
-#     print("--------------------------------")
-#     print(f"{inserted_kpi_social_name}-{inserted_kpi_social_definitions_id}")
-#     print("--------------------------------")
-
-
-
-

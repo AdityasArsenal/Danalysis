@@ -2,6 +2,8 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
     # Governance KPIs
     found_gov_kpi_names = []
+    found_gov_kpi_names_with_contextRef = []
+    contextRef_list = []
     found_gov_referance_unit = []
     found_gov_values = []
     found_gov_unit_refs = []
@@ -18,7 +20,6 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
     for kpi_name in env_kpi_names:
         g += 1
-        print(f'{g}.{kpi_name}')
 
         elements = root.findall(f'.//in-capmkt:{kpi_name}', namespaces=namespaces)
 
@@ -43,7 +44,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                             
                             if contextRef == "D_Male_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -54,7 +57,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
                             elif contextRef == "D_Female_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -65,7 +70,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                                 
                             else:
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -78,7 +85,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                             
                             if contextRef == "D_Male_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -89,7 +98,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
                             elif contextRef == "D_Female_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -100,7 +111,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                                 
                             else:
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -113,7 +126,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                             
                             if contextRef == "D_Male_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -124,7 +139,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
                             elif contextRef == "D_Female_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -135,7 +152,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                                 
                             else:
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -148,7 +167,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                             
                             if contextRef == "D_Male_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -159,7 +180,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
                             elif contextRef == "D_Female_p5":
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -170,7 +193,9 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                             
                             else:
                                 extended_kpi_name = f"{kpi_name}--{contextRef}"
-                                found_gov_kpi_names.append(extended_kpi_name)
+                                found_gov_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_gov_kpi_names_with_contextRef.append(extended_kpi_name)
                                 found_gov_referance_unit.append(contextRef)
                                 found_gov_values.append(value)
                                 found_gov_decimals.append(decimal)
@@ -178,8 +203,6 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
                                 found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
 
                                 Total_NumberOfWorkersForRemunerationOrSalaryOrWages+= int(value)
-                                print("---------------------------- \n")
-
             else:
                 for element in elements:
                     if element is not None:
@@ -196,18 +219,19 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
 
                         if "2023" in startPeriod.text:
                             found_gov_kpi_names.append(kpi_name)
+                            contextRef_list.append(contextRef)
+                            found_gov_kpi_names_with_contextRef.append(f"{kpi_name}_{contextRef}")
                             found_gov_referance_unit.append(contextRef)
                             found_gov_values.append(value)
                             found_gov_decimals.append(decimal)
                             found_gov_unit_refs.append(unit_ref)
                             found_gov_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                            
-                            print("---------------------------- \n")
         else:
             not_found_gov_kpi_names.append(kpi_name)
-            print(f"🔴Element not found for {kpi_name}\n")
 
     found_gov_kpi_names.append("Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages")
+    contextRef_list.append("None")
+    found_gov_kpi_names_with_contextRef.append("Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages")
     found_gov_values.append(Total_NumberOfBoardOfDirectorsForRemunerationOrSalaryOrWages)
     found_gov_referance_unit.append("None")
     found_gov_unit_refs.append("None")
@@ -216,6 +240,8 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
     not_found_gov_kpi_names.append("None")
 
     found_gov_kpi_names.append("Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages")
+    contextRef_list.append("None")
+    found_gov_kpi_names_with_contextRef.append("Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages")
     found_gov_values.append(Total_NumberOfKeyManagerialPersonnelForRemunerationOrSalaryOrWages)
     found_gov_referance_unit.append("None")
     found_gov_unit_refs.append("None")
@@ -224,6 +250,8 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
     not_found_gov_kpi_names.append("None")
 
     found_gov_kpi_names.append("Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages")
+    contextRef_list.append("None")
+    found_gov_kpi_names_with_contextRef.append("Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages")
     found_gov_values.append(Total_NumberOfEmployeesOtherThanBodAndKMPForRemunerationOrSalaryOrWages)
     found_gov_referance_unit.append("None")
     found_gov_unit_refs.append("None")
@@ -232,6 +260,8 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
     not_found_gov_kpi_names.append("None")
 
     found_gov_kpi_names.append("Total_NumberOfWorkersForRemunerationOrSalaryOrWages")
+    contextRef_list.append("None")
+    found_gov_kpi_names_with_contextRef.append("Total_NumberOfWorkersForRemunerationOrSalaryOrWages")
     found_gov_values.append(Total_NumberOfWorkersForRemunerationOrSalaryOrWages)
     found_gov_referance_unit.append("None")
     found_gov_unit_refs.append("None")
@@ -245,8 +275,8 @@ def get_gov_data_from_xml(root, namespaces, env_kpi_names):
     print(len(found_gov_unit_refs))
     print(len(found_gov_periods))
     print(len(found_gov_decimals))
-    print(len(not_found_gov_kpi_names))
+    print(f"not found gov kpis = {len(not_found_gov_kpi_names)}")
 
-    return found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names
+    return found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names, contextRef_list, found_gov_kpi_names_with_contextRef
 
 

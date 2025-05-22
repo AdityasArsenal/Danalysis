@@ -2,6 +2,8 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
 
     # Environmental KPIs
     found_env_kpi_names = []
+    found_env_kpi_names_with_contextRef = []
+    contextRef_list = []
     found_env_referance_unit = []
     found_env_values = []
     found_env_unit_refs = []
@@ -13,8 +15,6 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
 
     for kpi_name in env_kpi_names:
         g += 1
-        
-        print(f'{g}.{kpi_name}')
 
         elements = root.findall(f'.//in-capmkt:{kpi_name}', namespaces=namespaces)
 
@@ -37,66 +37,69 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
                         if kpi_name == "AmountOfReUsed" or kpi_name == "AmountOfRecycled":                                                        #time perriod check
                             if contextRef == "D_PlasticsIncludingPackaging":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_env_kpi_names.append(extended_KPI_Name)
+                                found_env_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_env_kpi_names_with_contextRef.append(extended_KPI_Name)
                                 found_env_referance_unit.append(contextRef)
                                 found_env_values.append(value)
                                 found_env_decimals.append(decimal)
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                                print("---------------------------- \n")
                                 
                             elif contextRef == "D_EWaste":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_env_kpi_names.append(extended_KPI_Name)
+                                found_env_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_env_kpi_names_with_contextRef.append(extended_KPI_Name)
                                 found_env_referance_unit.append(contextRef)
                                 found_env_values.append(value)
                                 found_env_decimals.append(decimal)
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                                print("---------------------------- \n")
 
                             elif contextRef == "D_HazardousWaste":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_env_kpi_names.append(extended_KPI_Name)
+                                found_env_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_env_kpi_names_with_contextRef.append(extended_KPI_Name)
                                 found_env_referance_unit.append(contextRef)
                                 found_env_values.append(value)
                                 found_env_decimals.append(decimal)
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                                print("---------------------------- \n")
                             
                             elif contextRef == "D_OtherWaste1":
                                 extended_KPI_Name = f"{kpi_name}_{contextRef}"
-                                found_env_kpi_names.append(extended_KPI_Name)
+                                found_env_kpi_names.append(kpi_name)
+                                contextRef_list.append(contextRef)
+                                found_env_kpi_names_with_contextRef.append(extended_KPI_Name)
                                 found_env_referance_unit.append(contextRef)
                                 found_env_values.append(value)
                                 found_env_decimals.append(decimal)
                                 found_env_unit_refs.append(unit_ref)
                                 found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                                print("---------------------------- \n")
 
                         elif "Percentage" in kpi_name:
                             found_env_kpi_names.append(kpi_name)
+                            contextRef_list.append(contextRef)
+                            found_env_kpi_names_with_contextRef.append(f"{kpi_name}_{contextRef}")
                             found_env_referance_unit.append(contextRef)
                             found_env_values.append(f"{float(value)*100}%")
                             found_env_decimals.append(decimal)
                             found_env_unit_refs.append(unit_ref)
                             found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                            
-                            print("---------------------------- \n")
 
                         else:
                             found_env_kpi_names.append(kpi_name)
+                            contextRef_list.append(contextRef)
+                            found_env_kpi_names_with_contextRef.append(f"{kpi_name}_{contextRef}")
                             found_env_referance_unit.append(contextRef)
                             found_env_values.append(value)
                             found_env_decimals.append(decimal)
                             found_env_unit_refs.append(unit_ref)
                             found_env_periods.append(f"{startPeriod.text}--{endPeriod.text}")
-                            
-                            print("---------------------------- \n")
         else:
             not_found_env_kpi_names.append(kpi_name)
-            print(f"🔴Element not found for {kpi_name}\n")
 
     print(len(found_env_kpi_names))
     print(len(found_env_values))
@@ -104,6 +107,6 @@ def get_env_data_from_xml(root, namespaces, env_kpi_names):
     print(len(found_env_unit_refs))
     print(len(found_env_periods))
     print(len(found_env_decimals))
-    print(len(not_found_env_kpi_names))
+    print(f"not found env kpis = {len(not_found_env_kpi_names)}")
 
-    return found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names
+    return found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names, contextRef_list, found_env_kpi_names_with_contextRef
