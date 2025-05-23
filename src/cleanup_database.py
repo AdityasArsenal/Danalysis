@@ -1,13 +1,17 @@
 import pyodbc
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Database connection configuration
 # Replace with your actual values
 DB_CONFIG = {
-    'server': 'esgdatadb.database.windows.net,1433',
-    'database': 'ESGDataDB',
-    'username': 'CloudSAfbce9c74',
-    'password': 'InsideOut@123',  # Replace with actual password
+    'server': os.getenv('AZURE_SQL_SERVER'),
+    'database': os.getenv('AZURE_SQL_DATABASE'),
+    'username': os.getenv('AZURE_SQL_USERNAME'),
+    'password': os.getenv('AZURE_SQL_PASSWORD'),
     'driver': '{ODBC Driver 18 for SQL Server}'
 }
 
@@ -177,4 +181,4 @@ def confirm_cleanup():
         print("Cleanup cancelled")
 
 if __name__ == "__main__":
-    confirm_cleanup() 
+    confirm_cleanup()
