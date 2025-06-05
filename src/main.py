@@ -15,8 +15,20 @@ from add_data_to_DB import (
 
 # List of URLs to download
 
-limit = 5
-company_names,file_names,urls = download_xml_files('extra_stuff/All_xml_links24_25.xlsx',limit)
+# Original: limit = 20
+# User has 6 companies, wants to add 30 more. Total = 36.
+# The script will fetch data for 36 companies from the Excel file.
+num_already_processed = 5
+num_new_to_add = 30
+limit_for_download = num_already_processed + num_new_to_add # This is the total number of entries to fetch from Excel
+
+all_company_names, all_file_names, all_urls = download_xml_files('extra_stuff/All_xml_links24_25.xlsx', limit_for_download)
+
+# We only want to process the new companies.
+# The first 'num_already_processed' (6) companies will be skipped.
+company_names_for_processing = all_company_names[num_already_processed:]
+file_names_for_processing = all_file_names[num_already_processed:]
+urls_for_processing = all_urls[num_already_processed:]
 
 social_kpi_names = [
     #"TrainingAndAwareness",
@@ -231,7 +243,7 @@ total_social_kpi_names = 0
 total_env_kpi_names = 0
 total_gov_kpi_names = 0
 
-for company_name, file_name, url in zip(company_names, file_names, urls):
+for company_name, file_name, url in zip(company_names_for_processing, file_names_for_processing, urls_for_processing):
     namespaces = {
         'xbrli': 'http://www.xbrl.org/2003/instance',
         'in-capmkt': 'https://www.sebi.gov.in/xbrl/2024-04-30/in-capmkt'
@@ -300,9 +312,9 @@ for company_name, file_name, url in zip(company_names, file_names, urls):
             total_inserted_company_kpi_data_ids += 1
 
     # For data visualization in sheets
-    adder(found_social_kpi_names, found_social_values, found_social_referance_unit, found_social_unit_refs, found_social_periods, found_social_decimals, not_found_social_kpi_names, company_name, "social info", urls)
-    adder(found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names, company_name, "env_res", urls)
-    adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names, company_name, "gov info", urls)
+    adder(found_social_kpi_names, found_social_values, found_social_referance_unit, found_social_unit_refs, found_social_periods, found_social_decimals, not_found_social_kpi_names, company_name, "social info", all_urls)
+    adder(found_env_kpi_names, found_env_values, found_env_referance_unit, found_env_unit_refs, found_env_periods, found_env_decimals, not_found_env_kpi_names, company_name, "env_res", all_urls)
+    adder(found_gov_kpi_names, found_gov_values, found_gov_referance_unit, found_gov_unit_refs, found_gov_periods, found_gov_decimals, not_found_gov_kpi_names, company_name, "gov info", all_urls)
 
     company_counter += 1
     total_social_kpi_names += len(found_social_kpi_names)
